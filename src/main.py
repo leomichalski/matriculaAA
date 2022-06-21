@@ -1,13 +1,30 @@
-# TODO: baixar pagina da web automaticamente
-# https://sig.unb.br/sigaa/public/turmas/listar.jsf
-# from urllib.request import urlopen
-# html_data = urlopen('http://www.google.com')
-# print(html_data.read())
+####################################################################################################
+# DOWNLOAD
+####################################################################################################
+
+import mechanicalsoup
+
+# conectar ao SIGAA
+browser = mechanicalsoup.StatefulBrowser(user_agent='MechanicalSoup')
+browser.open("https://sig.unb.br/sigaa/public/turmas/listar.jsf")  # <Response [200]>
+
+# selecionar o form
+browser.select_form('#formTurma')
+
+# preencher o form
+browser["formTurma:inputDepto"] = 673  # 673 eh a FGA
+# browser["formTurma:inputNivel"] = 'G'
+# browser["formTurma:inputPeriodo"] = '1'
+
+response = browser.submit_selected()
+
+####################################################################################################
+# PARSE
+####################################################################################################
 
 from bs4 import BeautifulSoup
 
-with open('mock_data/sigaa_listar_turmas_fga.html') as f:
-    soup = BeautifulSoup(f, 'html.parser')
+soup = BeautifulSoup(response.text, "html.parser")
 
 divTurmasAbertas = soup.find("div", {"id": "turmasAbertas"})
 tableTurmasAbertas = divTurmasAbertas.find("table", {"class": "listagem"})
