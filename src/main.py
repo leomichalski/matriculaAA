@@ -1,5 +1,5 @@
 ####################################################################################################
-# DOWNLOAD
+# BAIXAR
 ####################################################################################################
 
 import mechanicalsoup
@@ -19,7 +19,7 @@ browser["formTurma:inputDepto"] = 673  # 673 eh a FGA
 response = browser.submit_selected()
 
 ####################################################################################################
-# PARSE
+# EXTRAIR
 ####################################################################################################
 
 from bs4 import BeautifulSoup
@@ -41,9 +41,9 @@ for row in tableTurmasAbertas.tbody.find_all('tr'):
         nome_disciplina = row.find("span", {"class": "tituloDisciplina"}).getText()
         continue
     elif row_class == 'linhaImpar' or row_class == 'linhaPar':
-        nome_professor = row.find("td", {"class": "nome"}).getText()
-        # TODO: separar o parser da analise de dados
         td_list = row.findAll("td")
+        # pegar o nome da/do professor(a)
+        nome_professor = row.find("td", {"class": "nome"}).getText()
         # pegar a quantidade de vagas ofertadas na disciplina
         vagas_ofertadas = td_list[-3].getText()
         vagas_ocupadas = td_list[-2].getText()
@@ -57,5 +57,8 @@ for row in tableTurmasAbertas.tbody.find_all('tr'):
             # converter "quantidade de vagas" de str para int
             vagas_ofertadas = int(vagas_ofertadas)
             vagas_ocupadas = int(vagas_ocupadas)
-        vagas_disponiveis = vagas_ofertadas - vagas_ocupadas
-        print(vagas_disponiveis, "|", nome_disciplina, "|", nome_professor, "|", horario_codificado)
+        print(vagas_ofertadas, "|", vagas_ocupadas, "|", nome_disciplina, "|", nome_professor, "|", horario_codificado)
+
+####################################################################################################
+# TODO: ANALISAR
+####################################################################################################
