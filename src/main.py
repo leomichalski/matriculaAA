@@ -42,12 +42,13 @@ for row in tableTurmasAbertas.tbody.find_all('tr'):
         continue
     elif row_class == 'linhaImpar' or row_class == 'linhaPar':
         nome_professor = row.find("td", {"class": "nome"}).getText()
-        # TODO: pegar horario da disciplina e traduzir o codigo do SIGAA ("3T45" para "terca de 16h a 18h")
         # TODO: separar o parser da analise de dados
-        # pegar a quantidade de vagas ofertadas na disciplina
         td_list = row.findAll("td")
+        # pegar a quantidade de vagas ofertadas na disciplina
         vagas_ofertadas = td_list[-3].getText()
         vagas_ocupadas = td_list[-2].getText()
+        # pegar horario da disciplina
+        horario_codificado = td_list[-5].getText().split('\t')[0].strip()
         # lidar com o caso de nao haver um numero para representar a quantidade de vagas
         if vagas_ofertadas == '' or vagas_ocupadas == '':
             vagas_ofertadas = 0
@@ -57,4 +58,4 @@ for row in tableTurmasAbertas.tbody.find_all('tr'):
             vagas_ofertadas = int(vagas_ofertadas)
             vagas_ocupadas = int(vagas_ocupadas)
         vagas_disponiveis = vagas_ofertadas - vagas_ocupadas
-        print(vagas_disponiveis, "|", nome_disciplina, "|", nome_professor)
+        print(vagas_disponiveis, "|", nome_disciplina, "|", nome_professor, "|", horario_codificado)
