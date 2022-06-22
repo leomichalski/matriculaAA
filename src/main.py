@@ -49,6 +49,7 @@ for row in tableTurmasAbertas.tbody.find_all('tr'):
         vagas_ocupadas = td_list[-2].getText()
         # pegar horario da disciplina
         horario_codificado = str(td_list[-5]).split('<td>')[-1].split('<img')[0].strip()
+        horario_decodificado = str(td_list[-5].div).partition('>')[-1].replace('<br/>', '\t').replace('</div>','').strip()
         # lidar com o caso de nao haver um numero para representar a quantidade de vagas
         if vagas_ofertadas == '' or vagas_ocupadas == '':
             vagas_ofertadas = 0
@@ -57,7 +58,7 @@ for row in tableTurmasAbertas.tbody.find_all('tr'):
             # converter "quantidade de vagas" de str para int
             vagas_ofertadas = int(vagas_ofertadas)
             vagas_ocupadas = int(vagas_ocupadas)
-        print(vagas_ofertadas, "|", vagas_ocupadas, "|", nome_disciplina, "|", nome_professor, "|", horario_codificado)
+        print(vagas_ofertadas, "|", vagas_ocupadas, "|", nome_disciplina, "|", nome_professor, "|", horario_codificado, "|", horario_decodificado)
 
 ####################################################################################################
 # TODO: ANALISAR
