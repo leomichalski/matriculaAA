@@ -48,7 +48,7 @@ for row in tableTurmasAbertas.tbody.find_all('tr'):
         vagas_ofertadas = td_list[-3].getText()
         vagas_ocupadas = td_list[-2].getText()
         # pegar horario da disciplina
-        horario_codificado = td_list[-5].getText().split('\t')[0].strip()
+        horario_codificado = str(td_list[-5]).split('<td>')[-1].split('<img')[0].strip()
         # lidar com o caso de nao haver um numero para representar a quantidade de vagas
         if vagas_ofertadas == '' or vagas_ocupadas == '':
             vagas_ofertadas = 0
