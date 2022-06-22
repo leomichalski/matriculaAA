@@ -22,9 +22,7 @@ response = browser.submit_selected()
 # EXTRAIR
 ####################################################################################################
 
-from bs4 import BeautifulSoup
-
-soup = BeautifulSoup(response.text, "html.parser")
+soup = browser.page  # bs4.BeautifulSoup object
 
 divTurmasAbertas = soup.find("div", {"id": "turmasAbertas"})
 tableTurmasAbertas = divTurmasAbertas.find("table", {"class": "listagem"})
