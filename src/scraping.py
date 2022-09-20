@@ -72,5 +72,5 @@ while True:
                     vagas_ocupadas = int(vagas_ocupadas)
                 print(vagas_ofertadas, "|", vagas_ocupadas, "|", nome_disciplina, "|", nome_professor, "|", horario_codificado, "|", horario_decodificado)
                 # TODO: salvar no banco de dados com a unique key (codigo do departamento, time.time()) (variável departamento)
-            # nem precisa voltar pra página de seleção de forms, já que o form fica acima dos resultados
+        # nem precisa voltar pra página de seleção de forms, já que o form fica acima dos resultados
 
