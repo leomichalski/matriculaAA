@@ -1,8 +1,3 @@
-# TODO: acabar de fazer o crawler dps de acabar de fazer o banco ;)
-# - pegar os departamentos no quais os usuários tem interesse do sbd
-# - rodar scraping por departamento se conectando no sigaa uma vez
-# - salvar output no banco de dados
-
 import mechanicalsoup
 
 from random import random
