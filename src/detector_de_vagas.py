@@ -1,9 +1,7 @@
-
 import mechanicalsoup
 
 from random import random
 import time
-
 
 import os
 import ssl
@@ -15,6 +13,9 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from threading import Thread, Condition
+
+from utils import run_in_parallel
+
 
 def send_email(body, subject, sender_password,
                receiver_email='leonardomichalskim@gmail.com',
@@ -48,6 +49,9 @@ def send_email(body, subject, sender_password,
 ####################################################################################################
 # CONECTAR SOMENTE UMA VEZ A CADA 10 ~ 20 minutos
 ####################################################################################################
+
+
+tentou_se_matricular_em_desenho = False
 
 try:
     while True:
@@ -203,6 +207,21 @@ try:
                         print(nome_disciplina, 'vagas:', quantidade_de_vagas, 'prof:', nome_professor.split()[0], 'horario:', horario_codificado)
                         for _ in range(20):
                             print('@'*80)
+                        try:
+                            tentou_se_matricular_em_desenho = True
+                            run_in_parallel("""
+                            docker run --rm -it -v ${PWD}:/curr -w /curr leommiranda/pyautogui \
+                              python3 realiza_matricula.py --measure-time --take-screenshots \
+                              --matricula="190046945" --senha="" --cpf="07554385151" \
+                              --data-de-nascimento="13102000" \
+                              --codigo-disciplina="FGA0208" --nome-docente="MILENE SERRANO" \
+                              --horario-codificado="26M12" \
+                              --pasta-destino-screenshots="screenshots" \
+                              --pasta-imagens-pyautogui="images_to_locate"
+                            """)
+
+                        except:
+                            print("MATRICULA FALHOU")
                         try:
                             send_email(
                                 body="entre no sigaa o mais rápido possível\n" + str(nome_disciplina).lower() + "\n" + str(nome_professor).lower(),
