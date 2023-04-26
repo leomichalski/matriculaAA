@@ -10,10 +10,9 @@ docker run --rm -it -v ${PWD}:/curr -w /curr leommiranda/pyautogui \
   --pasta-imagens-pyautogui="images_to_locate"
 """
 
-# nao repara na bagunça :3
+import os
 import time
 import argparse
-import os
 
 from bot_utils import (
     organizar_janelas,
@@ -27,6 +26,15 @@ from sigaa_utils import (
     buscar_disciplina_matricula_extraordinaria,
     confirmar_dados_matricula_extraordinaria,
 )
+
+
+def take_screenshot(pasta_destino_screenshots, run_number):
+    img = pyautogui.screenshot(
+        os.path.join(
+            pasta_destino_screenshots,
+            "run_%02d.png" % (run_number,)
+        )
+    )
 
 
 def parse_args():
@@ -115,108 +123,116 @@ def parse_args():
     return args
 
 
-def take_screenshot(pasta_destino_screenshots, run_number):
-    img = pyautogui.screenshot(
-        os.path.join(
-            pasta_destino_screenshots,
-            "run_%02d.png" % (run_number,)
+def main(url_do_login,
+         matricula,
+         senha,
+         cpf,
+         data_de_nascimento,
+         codigo_disciplina,
+         nome_docente,
+         horario_codificado,
+         measure_time,
+         take_screenshots,
+         pasta_imagens_pyautogui,
+         pasta_destino_screenshots,
+         run_number,
+         time_out):
+    if measure_time:
+        start_time = time.time()
+
+    # esta funcao tambem retorna o pyautogui com o objetivo de
+    # ser compatível com pyvirtualdisplay (Xvfb) e com Docker
+    pyautogui, nodes_to_stop = start_screen()
+
+    if take_screenshots:
+        take_screenshot(
+            pasta_destino_screenshots=pasta_destino_screenshots,
+            run_number=run_number
         )
+
+    organizar_janelas(
+        pyautogui=pyautogui,
+        pasta_imagens_pyautogui=pasta_imagens_pyautogui,
     )
 
+    if take_screenshots:
+        take_screenshot(
+            pasta_destino_screenshots=pasta_destino_screenshots,
+            run_number=run_number
+        )
 
-args = parse_args()
-
-if args.measure_time:
-    start_time = time.time()
-
-# esta funcao tambem retorna o pyautogui com o objetivo de
-# ser compatível com pyvirtualdisplay (Xvfb) e com Docker
-pyautogui, nodes_to_stop = start_screen()
-
-if args.take_screenshots:
-    take_screenshot(
-        pasta_destino_screenshots=args.pasta_destino_screenshots,
-        run_number=args.run_number
+    abrir_url(
+        pyautogui=pyautogui,
+        url=url_do_login,
     )
 
-organizar_janelas(
-    pyautogui=pyautogui,
-    pasta_imagens_pyautogui=args.pasta_imagens_pyautogui,
-)
+    if take_screenshots:
+        take_screenshot(
+            pasta_destino_screenshots=pasta_destino_screenshots,
+            run_number=run_number
+        )
 
-if args.take_screenshots:
-    take_screenshot(
-        pasta_destino_screenshots=args.pasta_destino_screenshots,
-        run_number=args.run_number
+    login_no_sigaa(
+        pyautogui=pyautogui,
+        matricula=matricula,
+        senha=senha,
+        pasta_imagens_pyautogui=pasta_imagens_pyautogui,
     )
 
-abrir_url(
-    pyautogui=pyautogui,
-    url=args.url_do_login,
-)
+    if take_screenshots:
+        take_screenshot(
+            pasta_destino_screenshots=pasta_destino_screenshots,
+            run_number=run_number
+        )
 
-if args.take_screenshots:
-    take_screenshot(
-        pasta_destino_screenshots=args.pasta_destino_screenshots,
-        run_number=args.run_number
+    ir_pra_matricula_extraordinaria(
+        pyautogui=pyautogui,
+        pasta_imagens_pyautogui=pasta_imagens_pyautogui,
     )
 
-login_no_sigaa(
-    pyautogui=pyautogui,
-    matricula=args.matricula,
-    senha=args.senha,
-    pasta_imagens_pyautogui=args.pasta_imagens_pyautogui,
-)
+    if take_screenshots:
+        take_screenshot(
+            pasta_destino_screenshots=pasta_destino_screenshots,
+            run_number=run_number
+        )
 
-if args.take_screenshots:
-    take_screenshot(
-        pasta_destino_screenshots=args.pasta_destino_screenshots,
-        run_number=args.run_number
+    buscar_disciplina_matricula_extraordinaria(
+        pyautogui=pyautogui,
+        codigo_disciplina=codigo_disciplina,
+        nome_docente=nome_docente,
+        horario_codificado=horario_codificado,
+        pasta_imagens_pyautogui=pasta_imagens_pyautogui,
     )
 
-ir_pra_matricula_extraordinaria(
-    pyautogui=pyautogui,
-    pasta_imagens_pyautogui=args.pasta_imagens_pyautogui,
-)
+    if take_screenshots:
+        take_screenshot(
+            pasta_destino_screenshots=pasta_destino_screenshots,
+            run_number=run_number
+        )
 
-if args.take_screenshots:
-    take_screenshot(
-        pasta_destino_screenshots=args.pasta_destino_screenshots,
-        run_number=args.run_number
+    confirmar_dados_matricula_extraordinaria(
+        pyautogui=pyautogui,
+        cpf=cpf,
+        data_de_nascimento=data_de_nascimento,
+        matricula=matricula,
+        senha=senha,
+        pasta_imagens_pyautogui=pasta_imagens_pyautogui,
     )
 
-buscar_disciplina_matricula_extraordinaria(
-    pyautogui=pyautogui,
-    codigo_disciplina=args.codigo_disciplina,
-    nome_docente=args.nome_docente,
-    horario_codificado=args.horario_codificado,
-    pasta_imagens_pyautogui=args.pasta_imagens_pyautogui,
-)
+    if take_screenshots:
+        take_screenshot(
+            pasta_destino_screenshots=pasta_destino_screenshots,
+            run_number=run_number
+        )
 
-if args.take_screenshots:
-    take_screenshot(
-        pasta_destino_screenshots=args.pasta_destino_screenshots,
-        run_number=args.run_number
-    )
+    if measure_time:
+        print("elapsed time:", time.time() - start_time)
 
-confirmar_dados_matricula_extraordinaria(
-    pyautogui=pyautogui,
-    cpf=args.cpf,
-    data_de_nascimento=args.data_de_nascimento,
-    matricula=args.matricula,
-    senha=args.senha,
-    pasta_imagens_pyautogui=args.pasta_imagens_pyautogui,
-)
+    pyautogui.hotkey('ctrl', 'w')
 
-if args.take_screenshots:
-    take_screenshot(
-        pasta_destino_screenshots=args.pasta_destino_screenshots,
-        run_number=args.run_number
-    )
+    stop_screen(nodes_to_stop)
 
-if args.measure_time:
-    print("elapsed time:", time.time() - start_time)
 
-pyautogui.hotkey('ctrl', 'w')
-
-stop_screen(nodes_to_stop)
+if __name__ == '__main__':
+    args = parse_args()
+    main(**vars(args))
