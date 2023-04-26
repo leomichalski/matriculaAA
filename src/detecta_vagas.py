@@ -1,4 +1,5 @@
 import os
+from random import randint
 
 from bs4 import BeautifulSoup
 
@@ -107,69 +108,72 @@ def parse_lista_de_turmas(nome_do_arquivo_html,
     return lista_de_turmas
 
 
-def main(pasta_arquivos_html='arquivos_html'):
-    # TODO: run the following code periodically
+def main(pasta_arquivos_html='arquivos_html',
+         min_interval_s=150,
+         max_interval_s=300):
     # TODO: armazenar e recuperar a apropriadamente a lista de disciplinas interessantes
     # TODO: tambem eh interessante armazenar quem esta interessadx em que disciplina
-    turma_interessante_list = [
-        Turma(
-            nome_disciplina='ESTRUTURAS DE DADOS 2',
-            codigo_disciplina='FGA0030',
-            nome_docente='BRUNO CESAR RIBAS',
-            horario_codificado='35T6 35N1',
-            quantidade_de_vagas=None,
-            departamento=78,
-        )
-    ]
+    while True:
+        turma_interessante_list = [
+            Turma(
+                nome_disciplina='ESTRUTURAS DE DADOS 2',
+                codigo_disciplina='FGA0030',
+                nome_docente='BRUNO CESAR RIBAS',
+                horario_codificado='35T6 35N1',
+                quantidade_de_vagas=None,
+                departamento=78,
+            )
+        ]
 
-    # agrupar turmas por departamento
-    departamentos_unicos = {}
-    for turma_interessante in turma_interessante_list:
-        if departamentos_unicos.get(turma_interessante.departamento) is None:
-            departamentos_unicos[turma_interessante.departamento] = []
-        departamentos_unicos[turma_interessante.departamento].append(turma_interessante)
+        # agrupar turmas por departamento
+        departamentos_unicos = {}
+        for turma_interessante in turma_interessante_list:
+            if departamentos_unicos.get(turma_interessante.departamento) is None:
+                departamentos_unicos[turma_interessante.departamento] = []
+            departamentos_unicos[turma_interessante.departamento].append(turma_interessante)
 
-    for dep in departamentos_unicos:
-        # faz o webscraping do SIGAA, e salva a pagina html da lista de turmas
-        salvar_nova_lista(
-            url_inicial='https://sigaa.unb.br/sigaa/public/turmas/listar.jsf',
-            index_do_departamento_na_lista=dep,
-            measure_time=True,
-            take_screenshots=False,
-            pasta_destino_screenshots='',
-            pasta_imagens_pyautogui='elementos_das_telas_da_listagem_de_vagas',
-            pasta_arquivos_html=pasta_arquivos_html,
-            run_number=None,
-            pasta_padrao_de_downloads_do_so='/root/Downloads/',
-        )
+        for dep in departamentos_unicos:
+            # faz o webscraping do SIGAA, e salva a pagina html da lista de turmas
+            salvar_nova_lista(
+                url_inicial='https://sigaa.unb.br/sigaa/public/turmas/listar.jsf',
+                index_do_departamento_na_lista=dep,
+                measure_time=True,
+                take_screenshots=False,
+                pasta_destino_screenshots='',
+                pasta_imagens_pyautogui='elementos_das_telas_da_listagem_de_vagas',
+                pasta_arquivos_html=pasta_arquivos_html,
+                run_number=None,
+                pasta_padrao_de_downloads_do_so='/root/Downloads/',
+            )
 
-        # vai na pasta de arquivos html, e pega o mais recente do departamento escolhido
-        chosen_html_file = definir_arquivo_html_mais_recente(
-            pasta_arquivos_html=pasta_arquivos_html,
-            index_do_departamento_na_lista=dep,
-        )
-        print(chosen_html_file)
-        lista_de_turmas = parse_lista_de_turmas(
-            nome_do_arquivo_html=chosen_html_file,
-            pasta_arquivos_html=pasta_arquivos_html,
-        )
+            # vai na pasta de arquivos html, e pega o mais recente do departamento escolhido
+            chosen_html_file = definir_arquivo_html_mais_recente(
+                pasta_arquivos_html=pasta_arquivos_html,
+                index_do_departamento_na_lista=dep,
+            )
+            print(chosen_html_file)
+            lista_de_turmas = parse_lista_de_turmas(
+                nome_do_arquivo_html=chosen_html_file,
+                pasta_arquivos_html=pasta_arquivos_html,
+            )
 
-        # TODO: otimizar essa busca neh
-        for turma in lista_de_turmas:
-            if (turma.quantidade_de_vagas < 1):
-                continue
-            for turma_interessante in departamentos_unicos[dep]:
-                if (turma_interessante.codigo_disciplina == turma.codigo_disciplina) and \
-                   (turma_interessante.nome_docente.upper() in turma.nome_docente.upper()) and \
-                   (turma_interessante.horario_codificado.split()[0] == turma.horario_codificado.split()[0]):
-                    # TODO: publish as disciplinas com vagas abertas no kafka
-                    send_email(
-                        body="entre no sigaa o mais rápido possível\n" + str(turma.nome_disciplina).lower() + "\n" + str(turma.nome_docente).lower(),
-                        subject="vaga em " + str(turma.nome_disciplina).lower(),
-                        sender_password="txkhauissqakizji",
-                        receiver_email='leonardomichalskim@gmail.com',
-                        sender_email='leonardomichalskim@gmail.com'
-                    )
+            # TODO: otimizar essa busca neh
+            for turma in lista_de_turmas:
+                if (turma.quantidade_de_vagas < 1):
+                    continue
+                for turma_interessante in departamentos_unicos[dep]:
+                    if (turma_interessante.codigo_disciplina == turma.codigo_disciplina) and \
+                       (turma_interessante.nome_docente.upper() in turma.nome_docente.upper()) and \
+                       (turma_interessante.horario_codificado.split()[0] == turma.horario_codificado.split()[0]):
+                        # TODO: publish as disciplinas com vagas abertas no kafka
+                        send_email(
+                            body="entre no sigaa o mais rápido possível\n" + str(turma.nome_disciplina).lower() + "\n" + str(turma.nome_docente).lower(),
+                            subject="vaga em " + str(turma.nome_disciplina).lower(),
+                            sender_password="txkhauissqakizji",
+                            receiver_email='leonardomichalskim@gmail.com',
+                            sender_email='leonardomichalskim@gmail.com'
+                        )
+        time.sleep(randint(min_interval_s, max_interval_s))
 
 
 if __name__ == '__main__':
