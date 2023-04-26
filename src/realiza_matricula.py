@@ -7,7 +7,7 @@ docker run --rm -it -v ${PWD}:/curr -w /curr leommiranda/pyautogui \
   --codigo-disciplina="FGA0030" --nome-docente="BRUNO CESAR RIBAS" \
   --horario-codificado="35T6 35N1" \
   --pasta-destino-screenshots="screenshots" \
-  --pasta-imagens-pyautogui="images_to_locate"
+  --pasta-imagens-pyautogui="elementos_das_telas_da_extraordinaria"
 """
 
 import os
@@ -98,7 +98,7 @@ def parse_args():
     # informacoes relacionadas a imagens e a screenshots
     ap.add_argument(
         "--pasta-imagens-pyautogui",
-        type=str, default="images_to_locate",
+        type=str, default="elementos_das_telas_da_extraordinaria",
         help="Pasta onde estão as imagens usadas para localizar elementos na tela."
     )
     ap.add_argument(

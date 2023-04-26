@@ -1,10 +1,15 @@
 # nao repara na bagunça S2
 import os
 import time
+import shutil
+
 import cv2
 # import pyautogui
+
 from bot_utils import move_to, myLocateCenterOnScreen
 
+
+############### METODOS RELACIONADOS A MATRICULA EXTRAORDINARIA ###############
 
 def login_no_sigaa(pyautogui, matricula, senha, pasta_imagens_pyautogui):
     # PASSO: preencher o login do usuário
@@ -217,3 +222,67 @@ def confirmar_dados_matricula_extraordinaria(pyautogui, cpf,
     # TODO: em vez de esperar 20 segundos, esperar ate que algum
     # elemento especifico apareca na tela.
     time.sleep(20)
+
+
+############### METODOS RELACIONADOS A LISTAGEM DE DISCIPLINAS ###############
+
+def listar_disciplinas(pyautogui,
+                       pasta_imagens_pyautogui,
+                       index_do_departamento_na_lista):  # index da FGA eh 
+    # selecionar o departamento
+    departamento_location = move_to(
+        pyautogui=pyautogui,
+        filename=os.path.join(pasta_imagens_pyautogui, 'departamento_form.png'),
+        add_randomness=False,
+        xoffset=120,
+        yoffset=5,
+    )
+    pyautogui.click()
+    time.sleep(0.3)
+    pyautogui.hotkey('esc')
+    time.sleep(0.3)
+    for _ in range(index_do_departamento_na_lista):
+        time.sleep(0.01)
+        pyautogui.hotkey('down')
+    # listar as disciplinas
+    listar_location = move_to(
+        pyautogui=pyautogui,
+        filename=os.path.join(pasta_imagens_pyautogui, 'listar_form.png'),
+    )
+    pyautogui.click()
+
+
+def salvar_lista_de_turmas_e_fechar_sigaa(pyautogui,
+                                          pasta_imagens_pyautogui,
+                                          pasta_arquivos_html,
+                                          index_do_departamento_na_lista,
+                                          pasta_padrao_de_downloads_do_so):
+    # esperar lista de disciplinas aparecer
+    myLocateCenterOnScreen(
+        pyautogui,
+        os.path.join(pasta_imagens_pyautogui, 'turmas_encontradas.png'),
+        timeout=15
+    )
+    # salvar lista de disciplinas em um arquivo .html
+    nome_do_arquivo_html = 'dep' + str(index_do_departamento_na_lista) + '_' + str(time.time())
+    pyautogui.hotkey('ctrl', 's')
+    pyautogui.write(nome_do_arquivo_html, interval=0.02)
+    pyautogui.hotkey('enter')
+    time.sleep(5)
+    # mover o arquivo para a pasta adequada
+    shutil.move(
+        os.path.join(
+            pasta_padrao_de_downloads_do_so,
+            nome_do_arquivo_html + '.html'
+        ),
+        os.path.join(
+            pasta_arquivos_html,
+            nome_do_arquivo_html + '.html'
+        )
+    )
+    # fechar o SIGAA e o firefox
+    # TODO: fechar o SIGAA e o firefox EM PARALELO
+    time.sleep(10)
+    pyautogui.hotkey('ctrl', 'w')
+    pyautogui.hotkey('ctrl', 'w')
+    pyautogui.hotkey('ctrl', 'w')
