@@ -1,4 +1,5 @@
 import os
+import time
 from random import randint
 
 from bs4 import BeautifulSoup
@@ -21,6 +22,22 @@ class Turma:
         self.horario_codificado = horario_codificado
         self.quantidade_de_vagas = quantidade_de_vagas
         self.departamento = departamento
+
+
+class Discente:
+    def __init__(self,
+                 turma_desejada_list,
+                 matricula,
+                 senha,  # senha do sigaa
+                 cpf,
+                 data_de_nascimento,
+                 email):
+        self.turma_desejada_list = turma_desejada_list
+        self.matricula = matricula
+        self.senha = senha
+        self.cpf = cpf
+        self.data_de_nascimento = data_de_nascimento
+        self.email = email
 
 
 def dep_id_from_filename(filename):
@@ -111,8 +128,7 @@ def parse_lista_de_turmas(nome_do_arquivo_html,
 def main(pasta_arquivos_html='arquivos_html',
          min_interval_s=150,
          max_interval_s=300):
-    # TODO: armazenar e recuperar a apropriadamente a lista de disciplinas interessantes
-    # TODO: tambem eh interessante armazenar quem esta interessadx em que disciplina
+    # TODO: armazenar e recuperar a apropriadamente a lista de disciplinas interessantes e a lista de discentes
     while True:
         turma_interessante_list = [
             Turma(
@@ -122,6 +138,18 @@ def main(pasta_arquivos_html='arquivos_html',
                 horario_codificado='35T6 35N1',
                 quantidade_de_vagas=None,
                 departamento=78,
+            )
+        ]
+        discente_list = [
+            Discente(
+                turma_desejada_list=[
+                    turma_interessante_list[0],
+                ],
+                matricula=998877777,
+                senha=12345678,
+                cpf=11122233344,
+                data_de_nascimento='ddmmyyyy',
+                email='leonardomichalskim@gmail.com',
             )
         ]
 
@@ -165,14 +193,17 @@ def main(pasta_arquivos_html='arquivos_html',
                     if (turma_interessante.codigo_disciplina == turma.codigo_disciplina) and \
                        (turma_interessante.nome_docente.upper() in turma.nome_docente.upper()) and \
                        (turma_interessante.horario_codificado.split()[0] == turma.horario_codificado.split()[0]):
-                        # TODO: publish as disciplinas com vagas abertas no kafka
-                        send_email(
-                            body="entre no sigaa o mais rápido possível\n" + str(turma.nome_disciplina).lower() + "\n" + str(turma.nome_docente).lower(),
-                            subject="vaga em " + str(turma.nome_disciplina).lower(),
-                            sender_password="txkhauissqakizji",
-                            receiver_email='leonardomichalskim@gmail.com',
-                            sender_email='leonardomichalskim@gmail.com'
-                        )
+                        for discente in discente_list:
+                            if turma_interessante not in discente.turma_desejada_list:
+                                continue
+                            # TODO: publish somente_o_ID_(nao a senha)_do_discente_interessado e o id_da_turma_desejada_com_vaga_aberta para o kafka consumer de realizar matricula
+                            send_email(
+                                body="entre no sigaa o mais rápido possível\n" + str(turma.nome_disciplina).lower() + "\n" + str(turma.nome_docente).lower(),
+                                subject="vaga em " + str(turma.nome_disciplina).lower(),
+                                sender_password="txkhauissqakizji",
+                                receiver_email=discente.email,
+                                sender_email='leonardomichalskim@gmail.com'
+                            )
         time.sleep(randint(min_interval_s, max_interval_s))
 
 
