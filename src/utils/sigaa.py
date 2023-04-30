@@ -6,7 +6,7 @@ import shutil
 import cv2
 # import pyautogui
 
-from bot_utils import move_to, myLocateCenterOnScreen
+from utils.scraping import move_to, myLocateCenterOnScreen
 
 
 ############### METODOS RELACIONADOS A MATRICULA EXTRAORDINARIA ###############
@@ -286,3 +286,90 @@ def salvar_lista_de_turmas_e_fechar_sigaa(pyautogui,
     pyautogui.hotkey('ctrl', 'w')
     pyautogui.hotkey('ctrl', 'w')
     pyautogui.hotkey('ctrl', 'w')
+
+
+def dep_id_from_filename(filename):
+    return int(filename.split('_')[0].split('dep')[1])
+
+
+def timestamp_from_filename(filename):
+    return float(filename.split('_')[1].replace('.html', ''))
+
+
+# define o arquivo mais recente usando o nome do arquivo, nao a data de modificacao
+def definir_arquivo_html_mais_recente(pasta_arquivos_html,
+                                      index_do_departamento_na_lista):
+    html_filename_list = os.listdir(pasta_arquivos_html)
+    chosen_html_file = html_filename_list[0]
+    for html_filename in html_filename_list[1:]:
+        # se o arquivo nao for do departamento escolhido, pular
+        if index_do_departamento_na_lista != dep_id_from_filename(html_filename):
+            continue
+        # se o arquivo for mais antigo que o escolhido, pular
+        if timestamp_from_filename(chosen_html_file) > timestamp_from_filename(html_filename):
+            continue
+        chosen_html_file = html_filename
+    return chosen_html_file
+
+
+# parsing da lista gerada pelo metodo salvar_lista_de_turmas_e_fechar_sigaa
+def parse_lista_de_turmas(nome_do_arquivo_html,
+                          pasta_arquivos_html):
+    lista_de_turmas = []
+
+    soup = BeautifulSoup(
+        open(
+            os.path.join(
+                pasta_arquivos_html,
+                nome_do_arquivo_html,
+            ),
+            mode="r",
+            encoding="ISO-8859-1",
+        ).read()
+    )
+
+    divTurmasAbertas = soup.find("div", {"id": "turmasAbertas"})
+    tableTurmasAbertas = divTurmasAbertas.find("table", {"class": "listagem"})
+
+    nome_disciplina = ""
+    nome_docente = ""
+    for row in tableTurmasAbertas.tbody.find_all('tr'):
+        # pegar o tipo de row
+        # a row "agrupador" tem os nomes das disciplinas, embaixo dela tem as turmas dessa disciplina
+        # as outras rows podem se chamar "linhaImpar" ou "linhaPar", cada uma representa uma turma de uma disciplina
+        row_class = row.get('class')[0]
+        if row_class == 'agrupador':
+            # pegar o nome e o codigo da disciplina
+            codigo_disciplina, nome_disciplina = row.find("span", {"class": "tituloDisciplina"}).getText().split(' - ')
+            continue
+        elif row_class == 'linhaImpar' or row_class == 'linhaPar':
+            td_list = row.findAll("td")
+            # pegar o nome da/do professor(a)
+            nome_docente = row.find("td", {"class": "nome"}).getText()
+            # pegar a quantidade de vagas ofertadas na disciplina
+            vagas_ofertadas = td_list[-3].getText()
+            vagas_ocupadas = td_list[-2].getText()
+            # pegar horario da disciplina
+            horario_codificado = str(td_list[-5]).split('<td>')[-1].split('<img')[0].strip()
+            horario_decodificado = str(td_list[-5].div).partition('>')[-1].replace('<br/>', '\t').replace('</div>','').strip()
+            # lidar com o caso de nao haver um numero para representar a quantidade de vagas
+            if vagas_ofertadas == '' or vagas_ocupadas == '':
+                vagas_ofertadas = 0
+                vagas_ocupadas = 0
+            else:
+                # converter "quantidade de vagas" de str para int
+                vagas_ofertadas = int(vagas_ofertadas)
+                vagas_ocupadas = int(vagas_ocupadas)
+            # print(vagas_ofertadas, "|", vagas_ocupadas, "|", nome_disciplina, "|", nome_docente, "|", horario_codificado, "|", horario_decodificado)
+            quantidade_de_vagas = abs(vagas_ofertadas - vagas_ocupadas)
+            lista_de_turmas.append(
+                Turma(
+                    nome_disciplina=nome_disciplina,
+                    codigo_disciplina=codigo_disciplina,
+                    nome_docente=nome_docente,
+                    horario_codificado=horario_codificado,
+                    quantidade_de_vagas=quantidade_de_vagas,
+                    departamento=78,
+                )
+            )
+    return lista_de_turmas

@@ -14,13 +14,13 @@ import os
 import time
 import argparse
 
-from bot_utils import (
+from utils.scraping import (
     organizar_janelas,
     abrir_url,
     start_screen,
     stop_screen,
 )
-from sigaa_utils import (
+from utils.sigaa import (
     login_no_sigaa,
     ir_pra_matricula_extraordinaria,
     buscar_disciplina_matricula_extraordinaria,

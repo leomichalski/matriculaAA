@@ -3,8 +3,8 @@ import time
 import shutil
 import argparse
 
-from bot_utils import *
-from sigaa_utils import (
+from utils.scraping import *
+from utils.sigaa import (
     listar_disciplinas,
     salvar_lista_de_turmas_e_fechar_sigaa,
 )
