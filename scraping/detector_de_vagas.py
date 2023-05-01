@@ -2,9 +2,6 @@ import os
 import time
 from random import randint
 
-from bs4 import BeautifulSoup
-
-from tasks.salva_lista_de_turmas_de_um_departamento import main as salva_lista_de_turmas_de_um_departamento
 from utils.email import send_email
 from utils.sigaa import (
     dep_id_from_filename,
@@ -12,122 +9,85 @@ from utils.sigaa import (
     definir_arquivo_html_mais_recente,
     parse_lista_de_turmas,
 )
-
-
-# TODO: move to utils.database
-class Turma:
-    def __init__(self,
-                 nome_disciplina,
-                 codigo_disciplina,
-                 nome_docente,
-                 horario_codificado,
-                 quantidade_de_vagas,
-                 departamento=78):
-        self.nome_disciplina = nome_disciplina
-        self.codigo_disciplina = codigo_disciplina
-        self.nome_docente = nome_docente
-        self.horario_codificado = horario_codificado
-        self.quantidade_de_vagas = quantidade_de_vagas
-        self.departamento = departamento
-
-
-# TODO: move to utils.database
-class Discente:
-    def __init__(self,
-                 turma_desejada_list,
-                 matricula,
-                 senha,  # senha do sigaa
-                 cpf,
-                 data_de_nascimento,
-                 email):
-        self.turma_desejada_list = turma_desejada_list
-        self.matricula = matricula
-        self.senha = senha
-        self.cpf = cpf
-        self.data_de_nascimento = data_de_nascimento
-        self.email = email
+from utils.database import (
+    connect_to_db,
+    listar_relacao_turma_interessa_discente
+)
+from tasks.salva_lista_de_turmas_de_um_departamento import (
+    main as salva_lista_de_turmas_de_um_departamento
+)
 
 
 def main(pasta_arquivos_html='arquivos_html',
          min_interval_s=150,
-         max_interval_s=300):
-    # TODO: armazenar e recuperar a apropriadamente a lista de disciplinas interessantes e a lista de discentes
+         max_interval_s=300,
+         db_connection_timeout_s=60*5):
+    POSTGRES_HOST = os.getenv('POSTGRES_HOST')
+    POSTGRES_PORT = os.getenv('POSTGRES_PORT')
+    POSTGRES_DB = os.getenv('POSTGRES_DB')
+    POSTGRES_USER = os.getenv('POSTGRES_USER')
+    POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+
     while True:
-        turma_interessante_list = [
-            Turma(
-                nome_disciplina='ESTRUTURAS DE DADOS 2',
-                codigo_disciplina='FGA0030',
-                nome_docente='BRUNO CESAR RIBAS',
-                horario_codificado='35T6 35N1',
-                quantidade_de_vagas=None,
-                departamento=78,
-            )
-        ]
-        discente_list = [
-            Discente(
-                turma_desejada_list=[
-                    turma_interessante_list[0],
-                ],
-                matricula=998877777,
-                senha=12345678,
-                cpf=11122233344,
-                data_de_nascimento='ddmmyyyy',
-                email='leonardomichalskim@gmail.com',
-            )
-        ]
+        # connect to db if not connected, exit if timeout happens
+        conn, cursor = connect_to_db(
+            db_connection_timeout_s,
+            host=POSTGRES_HOST,
+            port=POSTGRES_PORT,
+            dbname=POSTGRES_DB,
+            user=POSTGRES_USER,
+            password=POSTGRES_PASSWORD,
+        )
+        turma_interessa_discente = listar_relacao_turma_interessa_discente(
+            cursor
+        )
+        idx_departamento_previo = -1  # departamento invalido
+        for codigo_disciplina, nome_disciplina, nome_docente_turma, horario_codificado_turma, id_discente, email_discente, idx_departamento in turma_interessa_discente:
+            if idx_departamento != idx_departamento_previo:
+                # faz o webscraping do SIGAA, e salva a pagina html da lista de turmas
+                salva_lista_de_turmas_de_um_departamento(
+                    url_inicial='https://sigaa.unb.br/sigaa/public/turmas/listar.jsf',
+                    index_do_departamento_na_lista=idx_departamento,
+                    measure_time=True,
+                    take_screenshots=False,
+                    pasta_destino_screenshots='',
+                    pasta_imagens_pyautogui='elementos_das_telas_da_listagem_de_vagas',
+                    pasta_arquivos_html=pasta_arquivos_html,
+                    run_number=None,
+                    pasta_padrao_de_downloads_do_so='/root/Downloads/',
+                )
+                # vai na pasta de arquivos html, e pega o mais recente do departamento escolhido
+                chosen_html_file = definir_arquivo_html_mais_recente(
+                    pasta_arquivos_html=pasta_arquivos_html,
+                    index_do_departamento_na_lista=idx_departamento,
+                )
+                lista_de_turmas_encontradas = parse_lista_de_turmas(
+                    nome_do_arquivo_html=chosen_html_file,
+                    pasta_arquivos_html=pasta_arquivos_html,
+                )
+                # remove turmas que nao tem vagas
+                lista_de_turmas_encontradas = [t for t in lista_de_turmas_encontradas if t['quantidade_de_vagas'] >= 1]
+                idx_departamento_previo = idx_departamento
 
-        # agrupar turmas por departamento
-        departamentos_unicos = {}
-        for turma_interessante in turma_interessante_list:
-            if departamentos_unicos.get(turma_interessante.departamento) is None:
-                departamentos_unicos[turma_interessante.departamento] = []
-            departamentos_unicos[turma_interessante.departamento].append(turma_interessante)
-
-        for dep in departamentos_unicos:
-            # faz o webscraping do SIGAA, e salva a pagina html da lista de turmas
-            salva_lista_de_turmas_de_um_departamento(
-                url_inicial='https://sigaa.unb.br/sigaa/public/turmas/listar.jsf',
-                index_do_departamento_na_lista=dep,
-                measure_time=True,
-                take_screenshots=False,
-                pasta_destino_screenshots='',
-                pasta_imagens_pyautogui='elementos_das_telas_da_listagem_de_vagas',
-                pasta_arquivos_html=pasta_arquivos_html,
-                run_number=None,
-                pasta_padrao_de_downloads_do_so='/root/Downloads/',
-            )
-
-            # vai na pasta de arquivos html, e pega o mais recente do departamento escolhido
-            chosen_html_file = definir_arquivo_html_mais_recente(
-                pasta_arquivos_html=pasta_arquivos_html,
-                index_do_departamento_na_lista=dep,
-            )
-            print(chosen_html_file)
-            lista_de_turmas = parse_lista_de_turmas(
-                nome_do_arquivo_html=chosen_html_file,
-                pasta_arquivos_html=pasta_arquivos_html,
-            )
-
-            # TODO: otimizar essa busca neh
-            for turma in lista_de_turmas:
-                if (turma.quantidade_de_vagas < 1):
-                    continue
-                for turma_interessante in departamentos_unicos[dep]:
-                    if (turma_interessante.codigo_disciplina == turma.codigo_disciplina) and \
-                       (turma_interessante.nome_docente.upper() in turma.nome_docente.upper()) and \
-                       (turma_interessante.horario_codificado.split()[0] == turma.horario_codificado.split()[0]):
-                        for discente in discente_list:
-                            if turma_interessante not in discente.turma_desejada_list:
-                                continue
-                            # TODO: publish somente_o_ID_(nao a senha)_do_discente_interessado e o id_da_turma_desejada_com_vaga_aberta para o kafka consumer de realizar matricula
-                            send_email(
-                                body="entre no sigaa o mais rápido possível\n" + str(turma.nome_disciplina).lower() + "\n" + str(turma.nome_docente).lower(),
-                                subject="vaga em " + str(turma.nome_disciplina).lower(),
-                                sender_password="txkhauissqakizji",
-                                receiver_email=discente.email,
-                                sender_email='leonardomichalskim@gmail.com'
-                            )
-        time.sleep(randint(min_interval_s, max_interval_s))
+            # conferir se a turma desejada esta na lista de turmas encontradas
+            # Obs: o tamanho maximo da lista_de_turmas_encontradas eh aprox. 400, a moda eh aprox. 20
+            for turma_encontrada in lista_de_turmas_encontradas:
+                if (codigo_disciplina == turma_encontrada['codigo_disciplina']) and \
+                   (nome_docente_turma.upper() in turma_encontrada['nome_docente'].upper()) and \
+                   (horario_codificado_turma.split()[0] == turma_encontrada['horario_codificado'].split()[0]):
+                    # TODO: publish discente.id and turma.id to kafka
+                    # mandar email para o discente
+                    send_email(
+                        body="entre no sigaa o mais rápido possível\n" + str(nome_disciplina).lower() + "\n" + str(nome_docente_turma).lower(),
+                        subject="vaga em " + str(nome_disciplina).lower(),
+                        sender_password="txkhauissqakizji",
+                        receiver_email=email_discente,
+                        sender_email='leonardomichalskim@gmail.com'
+                    )
+                    break
+        sleep_duration = randint(min_interval_s, max_interval_s)
+        print("Dormir por", str(sleep_duration), "segundos antes de conferir o SIGAA novamente.")
+        time.sleep(sleep_duration)
 
 
 if __name__ == '__main__':

@@ -5,6 +5,7 @@ import shutil
 
 import cv2
 # import pyautogui
+from bs4 import BeautifulSoup
 
 from utils.scraping import move_to, myLocateCenterOnScreen
 
@@ -362,14 +363,14 @@ def parse_lista_de_turmas(nome_do_arquivo_html,
                 vagas_ocupadas = int(vagas_ocupadas)
             # print(vagas_ofertadas, "|", vagas_ocupadas, "|", nome_disciplina, "|", nome_docente, "|", horario_codificado, "|", horario_decodificado)
             quantidade_de_vagas = abs(vagas_ofertadas - vagas_ocupadas)
+            # TODO: usar outra estrutura de dados para armazenar as turmas
             lista_de_turmas.append(
-                Turma(
-                    nome_disciplina=nome_disciplina,
-                    codigo_disciplina=codigo_disciplina,
-                    nome_docente=nome_docente,
-                    horario_codificado=horario_codificado,
-                    quantidade_de_vagas=quantidade_de_vagas,
-                    departamento=78,
-                )
+                {
+                    'nome_disciplina': nome_disciplina,
+                    'codigo_disciplina': codigo_disciplina,
+                    'nome_docente': nome_docente,
+                    'horario_codificado': horario_codificado,
+                    'quantidade_de_vagas': quantidade_de_vagas,
+                }
             )
     return lista_de_turmas

@@ -29,7 +29,7 @@ class Turma(models.Model):
     )
 
     class Meta:
-        ordering = ('nome_disciplina',)
+        ordering = ('departamento',)
         verbose_name = 'turma'
         verbose_name_plural = 'turmas'
         app_label = 'turmas'
