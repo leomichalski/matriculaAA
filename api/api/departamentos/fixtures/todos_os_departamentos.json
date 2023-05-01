@@ -1,0 +1,1847 @@
+[
+    {
+        "model": "departamentos.departamento",
+        "pk": 1,
+        "fields": {
+            "nome": "CENTRO DE APOIO AO DESENVOLVIMENTO TECNOLÓGICO - BRASÍLIA",
+            "index": 1,
+            "codigo": 643
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 2,
+        "fields": {
+            "nome": "CENTRO DE DESENVOLVIMENTO SUSTENTÁVEL - BRASÍLIA",
+            "index": 2,
+            "codigo": 640
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 3,
+        "fields": {
+            "nome": "CENTRO DE EXCELÊNCIA EM TURISMO - BRASÍLIA",
+            "index": 3,
+            "codigo": 314
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 4,
+        "fields": {
+            "nome": "CENTRO ESTUDOS AVANÇADOS MULTIDISCIPLIN - BRASÍLIA",
+            "index": 4,
+            "codigo": 650
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 5,
+        "fields": {
+            "nome": "CENTRO INTEGRADO ORDENAMENTO TERRITORIAL - BRASÍLIA",
+            "index": 5,
+            "codigo": 316
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 6,
+        "fields": {
+            "nome": "CENTRO INTERNACIONAL DE BIOÉTICA E HUMANIDADES - BRASÍLIA",
+            "index": 6,
+            "codigo": 1448
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 7,
+        "fields": {
+            "nome": "CENTRO UNB CERRADO - BRASÍLIA",
+            "index": 7,
+            "codigo": 677
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 8,
+        "fields": {
+            "nome": "DECANATO DE ENSINO DE GRADUACAO / DEG - BRASÍLIA",
+            "index": 8,
+            "codigo": 130
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 9,
+        "fields": {
+            "nome": "DECANATO DE PÓS-GRADUAÇÃO / DPG - BRASÍLIA",
+            "index": 9,
+            "codigo": 170
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 10,
+        "fields": {
+            "nome": "DECANATO EXTENSÃO - BRASÍLIA",
+            "index": 10,
+            "codigo": 158
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 11,
+        "fields": {
+            "nome": "DEPARTAMENTO DE AUDIOVISUAIS E PUBLICIDADE/DAP - BRASÍLIA",
+            "index": 11,
+            "codigo": 351
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 12,
+        "fields": {
+            "nome": "DEPARTAMENTO DE COMUNICAÇÃO ORGANIZACIONAL/COM - BRASÍLIA",
+            "index": 12,
+            "codigo": 345
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 13,
+        "fields": {
+            "nome": "DEPARTAMENTO DE DESIGN (11.01.01.14.04) - BRASÍLIA",
+            "index": 13,
+            "codigo": 660
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 14,
+        "fields": {
+            "nome": "DEPARTAMENTO DE ENGENHARIA MECANICA - BRASÍLIA",
+            "index": 14,
+            "codigo": 449
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 15,
+        "fields": {
+            "nome": "DEPARTAMENTO DE ESTUDOS LATINO AMERICANO - BRASÍLIA",
+            "index": 15,
+            "codigo": 479
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 16,
+        "fields": {
+            "nome": "DEPARTAMENTO DE FARMACIA - BRASÍLIA",
+            "index": 16,
+            "codigo": 678
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 17,
+        "fields": {
+            "nome": "DEPARTAMENTO DE GESTAO DE POLITICAS PUBL - BRASÍLIA",
+            "index": 17,
+            "codigo": 791
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 18,
+        "fields": {
+            "nome": "DEPARTAMENTO DE JORNALISMO/JOR - BRASÍLIA",
+            "index": 18,
+            "codigo": 352
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 19,
+        "fields": {
+            "nome": "DEPARTAMENTO DE MATEMÁTICA - BRASÍLIA",
+            "index": 19,
+            "codigo": 518
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 20,
+        "fields": {
+            "nome": "DEPARTAMENTO DE MÉTODOS E TÉCNICAS - BRASÍLIA",
+            "index": 20,
+            "codigo": 390
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 21,
+        "fields": {
+            "nome": "DEPARTAMENTO DE POLÍTICAS PÚBLICAS E GESTÃO DA EDUCAÇÃO - BRASÍLIA",
+            "index": 21,
+            "codigo": 391
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 22,
+        "fields": {
+            "nome": "DEPARTAMENTO DE PSICOLOGIA CLÍNICA - BRASÍLIA",
+            "index": 22,
+            "codigo": 592
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 23,
+        "fields": {
+            "nome": "DEPARTAMENTO DE SOCIOLOGIA - BRASÍLIA",
+            "index": 23,
+            "codigo": 483
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 24,
+        "fields": {
+            "nome": "DEPARTAMENTO DE TEORIA E FUNDAMENTOS - BRASÍLIA",
+            "index": 24,
+            "codigo": 392
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 25,
+        "fields": {
+            "nome": "DEPTO ADMINISTRAÇÃO - BRASÍLIA",
+            "index": 25,
+            "codigo": 327
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 26,
+        "fields": {
+            "nome": "DEPTO ANTROPOLOGIA - BRASÍLIA",
+            "index": 26,
+            "codigo": 481
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 27,
+        "fields": {
+            "nome": "DEPTO ARTES CÊNICAS - BRASÍLIA",
+            "index": 27,
+            "codigo": 492
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 28,
+        "fields": {
+            "nome": "DEPTO ARTES VISUAIS - BRASÍLIA",
+            "index": 28,
+            "codigo": 498
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 29,
+        "fields": {
+            "nome": "DEPTO BIOLOGIA CELULAR - BRASÍLIA",
+            "index": 29,
+            "codigo": 464
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 30,
+        "fields": {
+            "nome": "DEPTO BOTÂNICA - BRASÍLIA",
+            "index": 30,
+            "codigo": 462
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 31,
+        "fields": {
+            "nome": "DEPTO CIÊNCIAS CONTÁBEIS ATUARIAIS - BRASÍLIA",
+            "index": 31,
+            "codigo": 333
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 32,
+        "fields": {
+            "nome": "DEPTO CIÊNCIAS DA COMPUTAÇÃO - BRASÍLIA",
+            "index": 32,
+            "codigo": 508
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 33,
+        "fields": {
+            "nome": "DEPTO CIÊNCIAS FISIOLÓGICAS - BRASÍLIA",
+            "index": 33,
+            "codigo": 466
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 34,
+        "fields": {
+            "nome": "DEPTO CIÊNCIAS INFORMAÇÃO DOCUMENTAÇÃO - BRASÍLIA",
+            "index": 34,
+            "codigo": 337
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 35,
+        "fields": {
+            "nome": "DEPTO ECOLOGIA - BRASÍLIA",
+            "index": 35,
+            "codigo": 467
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 36,
+        "fields": {
+            "nome": "DEPTO ECONOMIA - BRASÍLIA",
+            "index": 36,
+            "codigo": 548
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 37,
+        "fields": {
+            "nome": "DEPTO ENFERMAGEM - BRASÍLIA",
+            "index": 37,
+            "codigo": 422
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 38,
+        "fields": {
+            "nome": "DEPTO ENGENHARIA CIVIL E AMBIENTAL - BRASÍLIA",
+            "index": 38,
+            "codigo": 437
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 39,
+        "fields": {
+            "nome": "DEPTO ENGENHARIA DE PRODUCAO - BRASÍLIA",
+            "index": 39,
+            "codigo": 760
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 40,
+        "fields": {
+            "nome": "DEPTO ENGENHARIA ELETRICA - BRASÍLIA",
+            "index": 40,
+            "codigo": 443
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 41,
+        "fields": {
+            "nome": "DEPTO ENGENHARIA FLORESTAL - BRASÍLIA",
+            "index": 41,
+            "codigo": 433
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 42,
+        "fields": {
+            "nome": "DEPTO ESTATÍSTICA - BRASÍLIA",
+            "index": 42,
+            "codigo": 514
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 43,
+        "fields": {
+            "nome": "DEPTO FILOSOFIA - BRASÍLIA",
+            "index": 43,
+            "codigo": 552
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 44,
+        "fields": {
+            "nome": "DEPTO FITOPATOLOGIA - BRASÍLIA",
+            "index": 44,
+            "codigo": 469
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 45,
+        "fields": {
+            "nome": "DEPTO GENÉTICA E MORFOLOGIA - BRASÍLIA",
+            "index": 45,
+            "codigo": 471
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 46,
+        "fields": {
+            "nome": "DEPTO GEOGRAFIA - BRASÍLIA",
+            "index": 46,
+            "codigo": 555
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 47,
+        "fields": {
+            "nome": "DEPTO GEOLOGIA GERAL APLICADA - BRASÍLIA",
+            "index": 47,
+            "codigo": 539
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 48,
+        "fields": {
+            "nome": "DEPTO GEOQUÍMICA E RECURSOS MINERAIS - BRASÍLIA",
+            "index": 48,
+            "codigo": 541
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 49,
+        "fields": {
+            "nome": "DEPTO HISTÓRIA - BRASÍLIA",
+            "index": 49,
+            "codigo": 559
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 50,
+        "fields": {
+            "nome": "DEPTO LINGUISTICA, PORT. LING. CLASSICAS - BRASÍLIA",
+            "index": 50,
+            "codigo": 578
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 51,
+        "fields": {
+            "nome": "DEPTO LÍNGUAS ESTRANGEIRAS E TRADUÇÃO - BRASÍLIA",
+            "index": 51,
+            "codigo": 574
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 52,
+        "fields": {
+            "nome": "DEPTO MINERALOGIA E PETROLOGIA - BRASÍLIA",
+            "index": 52,
+            "codigo": 540
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 53,
+        "fields": {
+            "nome": "DEPTO MÚSICA - BRASÍLIA",
+            "index": 53,
+            "codigo": 495
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 54,
+        "fields": {
+            "nome": "DEPTO NUTRICAO - BRASÍLIA",
+            "index": 54,
+            "codigo": 424
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 55,
+        "fields": {
+            "nome": "DEPTO ODONTOLOGIA - BRASÍLIA",
+            "index": 55,
+            "codigo": 427
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 56,
+        "fields": {
+            "nome": "DEPTO PROCESSOS PSICOLÓGICOS BÁSICOS - BRASÍLIA",
+            "index": 56,
+            "codigo": 594
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 57,
+        "fields": {
+            "nome": "DEPTO PROJETOS EXPRES REPRES ARQ E URBAN - BRASÍLIA",
+            "index": 57,
+            "codigo": 360
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 58,
+        "fields": {
+            "nome": "DEPTO PSICOLOGIA ESCOLAR DESENVOLVIMENTO - BRASÍLIA",
+            "index": 58,
+            "codigo": 593
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 59,
+        "fields": {
+            "nome": "DEPTO PSICOLOGIA SOCIAL E DO TRABALHO - BRASÍLIA",
+            "index": 59,
+            "codigo": 596
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 60,
+        "fields": {
+            "nome": "DEPTO SAUDE COLETIVA - BRASÍLIA",
+            "index": 60,
+            "codigo": 420
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 61,
+        "fields": {
+            "nome": "DEPTO SERVIÇO SOCIAL - BRASÍLIA",
+            "index": 61,
+            "codigo": 563
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 62,
+        "fields": {
+            "nome": "DEPTO TECNOLOGIA ARQUITETURA URBANISMO - BRASÍLIA",
+            "index": 62,
+            "codigo": 361
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 63,
+        "fields": {
+            "nome": "DEPTO TEORIA HISTORIA ARQUIT E URBANISM - BRASÍLIA",
+            "index": 63,
+            "codigo": 362
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 64,
+        "fields": {
+            "nome": "DEPTO TEORIA LITERÁRIA E LITERATURA - BRASÍLIA",
+            "index": 64,
+            "codigo": 580
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 65,
+        "fields": {
+            "nome": "DEPTO ZOOLOGIA - BRASÍLIA",
+            "index": 65,
+            "codigo": 472
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 66,
+        "fields": {
+            "nome": "FACULDADE DE  CIÊNCIAS DA SAÚDE - BRASÍLIA",
+            "index": 66,
+            "codigo": 410
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 67,
+        "fields": {
+            "nome": "FACULDADE DE AGRONOMIA E MEDICINA VETERINÁRIA - BRASÍLIA",
+            "index": 67,
+            "codigo": 363
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 68,
+        "fields": {
+            "nome": "FACULDADE DE ARQUITETURA E URBANISMO - BRASÍLIA",
+            "index": 68,
+            "codigo": 353
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 69,
+        "fields": {
+            "nome": "FACULDADE DE CEILÂNDIA - BRASÍLIA",
+            "index": 69,
+            "codigo": 672
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 70,
+        "fields": {
+            "nome": "FACULDADE DE CIÊNCIA DA INFORMAÇÃO - BRASÍLIA",
+            "index": 70,
+            "codigo": 674
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 71,
+        "fields": {
+            "nome": "FACULDADE DE COMUNICAÇÃO - BRASÍLIA",
+            "index": 71,
+            "codigo": 343
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 72,
+        "fields": {
+            "nome": "FACULDADE DE DIREITO - BRASÍLIA",
+            "index": 72,
+            "codigo": 370
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 73,
+        "fields": {
+            "nome": "FACULDADE DE EDUCAÇÃO - BRASÍLIA",
+            "index": 73,
+            "codigo": 381
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 74,
+        "fields": {
+            "nome": "FACULDADE DE EDUCAÇÃO FÍSICA - BRASÍLIA",
+            "index": 74,
+            "codigo": 393
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 75,
+        "fields": {
+            "nome": "FACULDADE DE MEDICINA - BRASÍLIA",
+            "index": 75,
+            "codigo": 402
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 76,
+        "fields": {
+            "nome": "FACULDADE DE PLANALTINA - BRASÍLIA",
+            "index": 76,
+            "codigo": 666
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 77,
+        "fields": {
+            "nome": "FACULDADE DE TECNOLOGIA - BRASÍLIA",
+            "index": 77,
+            "codigo": 429
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 78,
+        "fields": {
+            "nome": "FACULDADE DO GAMA - BRASÍLIA",
+            "index": 78,
+            "codigo": 673
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 79,
+        "fields": {
+            "nome": "FACULDADE ECONOMIA,  ADMINISTRAÇÃO,  CONTABILIDADE E  GEST POL PÚBLICAS - BRASÍLIA",
+            "index": 79,
+            "codigo": 323
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 80,
+        "fields": {
+            "nome": "GRADUAÇÃO EM ADMINISTRAÇÃO - BACHARELADO - BRASÍLIA",
+            "index": 80,
+            "codigo": 1201
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 81,
+        "fields": {
+            "nome": "HOSP-HOSPITAL UNIVERSITÁRIO DE BRASÍLIA - BRASÍLIA",
+            "index": 81,
+            "codigo": 288
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 82,
+        "fields": {
+            "nome": "INSTITUTO DE ARTES - BRASÍLIA",
+            "index": 82,
+            "codigo": 485
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 83,
+        "fields": {
+            "nome": "INSTITUTO DE CIÊNCIA POLÍTICA - BRASÍLIA",
+            "index": 83,
+            "codigo": 668
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 84,
+        "fields": {
+            "nome": "INSTITUTO DE CIÊNCIAS BIOLÓGICAS - BRASÍLIA",
+            "index": 84,
+            "codigo": 455
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 85,
+        "fields": {
+            "nome": "INSTITUTO DE CIÊNCIAS EXATAS - BRASÍLIA",
+            "index": 85,
+            "codigo": 504
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 86,
+        "fields": {
+            "nome": "INSTITUTO DE CIÊNCIAS HUMANAS - BRASÍLIA",
+            "index": 86,
+            "codigo": 544
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 87,
+        "fields": {
+            "nome": "INSTITUTO DE CIÊNCIAS SOCIAIS - BRASÍLIA",
+            "index": 87,
+            "codigo": 473
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 88,
+        "fields": {
+            "nome": "INSTITUTO DE FÍSICA - BRASÍLIA",
+            "index": 88,
+            "codigo": 524
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 89,
+        "fields": {
+            "nome": "INSTITUTO DE GEOCIÊNCIAS - BRASÍLIA",
+            "index": 89,
+            "codigo": 533
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 90,
+        "fields": {
+            "nome": "INSTITUTO DE LETRAS - BRASÍLIA",
+            "index": 90,
+            "codigo": 567
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 91,
+        "fields": {
+            "nome": "INSTITUTO DE PSICOLOGIA - BRASÍLIA",
+            "index": 91,
+            "codigo": 583
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 92,
+        "fields": {
+            "nome": "INSTITUTO DE QUÍMICA - BRASÍLIA",
+            "index": 92,
+            "codigo": 610
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 93,
+        "fields": {
+            "nome": "INSTITUTO DE RELAÇÕES INTERNACIONAIS - BRASÍLIA",
+            "index": 93,
+            "codigo": 669
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 94,
+        "fields": {
+            "nome": "OBSERVATÓRIO SISMOLÓGICO - BRASÍLIA",
+            "index": 94,
+            "codigo": 542
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 95,
+        "fields": {
+            "nome": "PARQUE CIENTÍFICO E TECNOLÓGICO DA UNB - BRASÍLIA",
+            "index": 95,
+            "codigo": 1080
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 96,
+        "fields": {
+            "nome": "PARQUE DE INOVAÇÃO E SUSTENTABILIDADE DO AMBIENTE CONSTRUÍDO - BRASÍLIA",
+            "index": 96,
+            "codigo": 1615
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 97,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ADMINISTRAÇÃO (PROFISSIONAL) - BRASÍLIA",
+            "index": 97,
+            "codigo": 1617
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 98,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ADMINISTRAÇÃO - BRASÍLIA",
+            "index": 98,
+            "codigo": 664
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 99,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM AGRONEGÓCIOS - BRASÍLIA",
+            "index": 99,
+            "codigo": 853
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 100,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM AGRONOMIA - BRASÍLIA",
+            "index": 100,
+            "codigo": 854
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 101,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ANTROPOLOGIA - BRASÍLIA",
+            "index": 101,
+            "codigo": 855
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 102,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ARQUITETURA E URBANISMO - BRASÍLIA",
+            "index": 102,
+            "codigo": 927
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 103,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ARTES CÊNICAS - BRASÍLIA",
+            "index": 103,
+            "codigo": 842
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 104,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ARTES VISUAIS - BRASÍLIA",
+            "index": 104,
+            "codigo": 911
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 105,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM BIOLOGIA ANIMAL - BRASÍLIA",
+            "index": 105,
+            "codigo": 1491
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 106,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM BIOLOGIA MICROBIANA - BRASÍLIA",
+            "index": 106,
+            "codigo": 1501
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 107,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM BIOTECNOLOGIA E BIODIVERSIDADE - REDE PRÓ-CENTRO-OESTE - BRASÍLIA",
+            "index": 107,
+            "codigo": 1492
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 108,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM BIOÉTICA - BRASÍLIA",
+            "index": 108,
+            "codigo": 831
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 109,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM BOTÂNICA - BRASÍLIA",
+            "index": 109,
+            "codigo": 1489
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 110,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIA POLÍTICA - BRASÍLIA",
+            "index": 110,
+            "codigo": 900
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 111,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS AMBIENTAIS - BRASÍLIA",
+            "index": 111,
+            "codigo": 995
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 112,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS ANIMAIS - BRASÍLIA",
+            "index": 112,
+            "codigo": 909
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 113,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS BIOLÓGICAS (BIOLOGIA MOLECULAR) - BRASÍLIA",
+            "index": 113,
+            "codigo": 1488
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 114,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS CONTÁBEIS - BRASÍLIA",
+            "index": 114,
+            "codigo": 896
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 115,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS DA INFORMAÇÃO - BRASÍLIA",
+            "index": 115,
+            "codigo": 946
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 116,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS DA REABILITAÇÃO - BRASÍLIA",
+            "index": 116,
+            "codigo": 898
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 117,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS DA SAÚDE - BRASÍLIA",
+            "index": 117,
+            "codigo": 902
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 118,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS DE MATERIAIS - BRASÍLIA",
+            "index": 118,
+            "codigo": 988
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 119,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS DO COMPORTAMENTO - BRASÍLIA",
+            "index": 119,
+            "codigo": 903
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 120,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS E TECNOLOGIAS EM SAÚDE - BRASÍLIA",
+            "index": 120,
+            "codigo": 897
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 121,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS FARMACÊUTICAS - BRASÍLIA",
+            "index": 121,
+            "codigo": 906
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 122,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS FLORESTAIS - BRASÍLIA",
+            "index": 122,
+            "codigo": 997
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 123,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS MECÂNICAS - BRASÍLIA",
+            "index": 123,
+            "codigo": 904
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 124,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS MÉDICAS - BRASÍLIA",
+            "index": 124,
+            "codigo": 845
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 125,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM COMPUTAÇÃO APLICADA (PROFISSIONAL) - BRASÍLIA",
+            "index": 125,
+            "codigo": 840
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 126,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM COMUNICAÇÃO/PPGCOM - BRASÍLIA",
+            "index": 126,
+            "codigo": 841
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 127,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM DESENVOLVIMENTO E COOPERAÇÃO INTERNACIONAL - BRASÍLIA",
+            "index": 127,
+            "codigo": 929
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 128,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM DESENVOLVIMENTO SUSTENTÁVEL - BRASÍLIA",
+            "index": 128,
+            "codigo": 1487
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 129,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM DESIGN - BRASÍLIA",
+            "index": 129,
+            "codigo": 875
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 130,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM DIREITO - BRASÍLIA",
+            "index": 130,
+            "codigo": 914
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 131,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM DIREITO, REGULAÇÃO E POLÍTICAS PÚBLICAS - BRASÍLIA",
+            "index": 131,
+            "codigo": 1505
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 132,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM DIREITOS HUMANOS E CIDADANIA - BRASÍLIA",
+            "index": 132,
+            "codigo": 916
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 133,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ECOLOGIA - BRASÍLIA",
+            "index": 133,
+            "codigo": 1490
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 134,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ECONOMIA (PROFISSIONAL) - BRASÍLIA",
+            "index": 134,
+            "codigo": 1619
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 135,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ECONOMIA - BRASÍLIA",
+            "index": 135,
+            "codigo": 1198
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 136,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM EDUCAÇÃO (PROFISSIONAL) - BRASÍLIA",
+            "index": 136,
+            "codigo": 1620
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 137,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM EDUCAÇÃO - BRASÍLIA",
+            "index": 137,
+            "codigo": 977
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 138,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM EDUCAÇÃO EM CIÊNCIAS - BRASÍLIA",
+            "index": 138,
+            "codigo": 1185
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 139,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM EDUCAÇÃO FÍSICA (PROFISSIONAL) - BRASÍLIA",
+            "index": 139,
+            "codigo": 1625
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 140,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM EDUCAÇÃO FÍSICA - BRASÍLIA",
+            "index": 140,
+            "codigo": 910
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 141,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ENFERMAGEM - BRASÍLIA",
+            "index": 141,
+            "codigo": 843
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 142,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ENGENHARIA BIOMÉDICA - BRASÍLIA",
+            "index": 142,
+            "codigo": 959
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 143,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ENGENHARIA DE SISTEMAS ELETRÔNICOS E AUTOMAÇÃO - BRASÍLIA",
+            "index": 143,
+            "codigo": 949
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 144,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ENGENHARIA ELÉTRICA - BRASÍLIA",
+            "index": 144,
+            "codigo": 948
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 145,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ENSINO DE CIÊNCIAS (PROFISSIONAL) - BRASÍLIA",
+            "index": 145,
+            "codigo": 1186
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 146,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ENSINO DE FÍSICA (PROFISSIONAL) - BRASÍLIA",
+            "index": 146,
+            "codigo": 1506
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 147,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ENSINO DE GEOGRAFIA EM REDE (PROFISSIONAL) - BRASÍLIA",
+            "index": 147,
+            "codigo": 1613
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 148,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ESTATÍSTICA - BRASÍLIA",
+            "index": 148,
+            "codigo": 876
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 149,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ESTRUTURAS E CONSTRUÇÃO CIVIL - BRASÍLIA",
+            "index": 149,
+            "codigo": 829
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 150,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ESTUDOS COMPARADOS SOBRE AS AMÉRICAS - BRASÍLIA",
+            "index": 150,
+            "codigo": 1225
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 151,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ESTUDOS DA TRADUÇÃO - BRASÍLIA",
+            "index": 151,
+            "codigo": 1494
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 152,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM FILOSOFIA (PROFISSIONAL) - BRASÍLIA",
+            "index": 152,
+            "codigo": 1664
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 153,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM FILOSOFIA - BRASÍLIA",
+            "index": 153,
+            "codigo": 917
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 154,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM FITOPATOLOGIA - BRASÍLIA",
+            "index": 154,
+            "codigo": 947
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 155,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM FÍSICA - BRASÍLIA",
+            "index": 155,
+            "codigo": 985
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 156,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM GEOCIÊNCIAS APLICADAS E GEODINÂMICA - BRASÍLIA",
+            "index": 156,
+            "codigo": 932
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 157,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM GEOGRAFIA - BRASÍLIA",
+            "index": 157,
+            "codigo": 1493
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 158,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM GEOLOGIA - BRASÍLIA",
+            "index": 158,
+            "codigo": 931
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 159,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM GEOTECNIA - BRASÍLIA",
+            "index": 159,
+            "codigo": 901
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 160,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM GESTÃO E REGULAÇÃO DE RECURSOS HÍDRICOS - PROFÁGUA (PROFISSIONAL) - BRASÍLIA",
+            "index": 160,
+            "codigo": 1503
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 161,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM GESTÃO PÚBLICA (PROFISSIONAL) - BRASÍLIA",
+            "index": 161,
+            "codigo": 933
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 162,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM GOVERNANÇA E INOVAÇÃO EM POLÍTICAS PÚBLICAS (PROFISSIONAL) - BRASÍLIA",
+            "index": 162,
+            "codigo": 1616
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 163,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM HISTÓRIA - BRASÍLIA",
+            "index": 163,
+            "codigo": 928
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 164,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM INFORMÁTICA - BRASÍLIA",
+            "index": 164,
+            "codigo": 895
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 165,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM INTEGRIDADE DE MATERIAIS DA ENGENHARIA - BRASÍLIA",
+            "index": 165,
+            "codigo": 960
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 166,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM LINGUÍSTICA - BRASÍLIA",
+            "index": 166,
+            "codigo": 1495
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 167,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM LINGUÍSTICA APLICADA - BRASÍLIA",
+            "index": 167,
+            "codigo": 1203
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 168,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM LITERATURA - BRASÍLIA",
+            "index": 168,
+            "codigo": 987
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 169,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM MATEMÁTICA - BRASÍLIA",
+            "index": 169,
+            "codigo": 983
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 170,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM MATEMÁTICA EM REDE NACIONAL (PROFISSIONAL) - BRASÍLIA",
+            "index": 170,
+            "codigo": 990
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 171,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM MEDICINA TROPICAL - BRASÍLIA",
+            "index": 171,
+            "codigo": 874
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 172,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM MEIO AMBIENTE EM DESENVOLVIMENTO RURAL - BRASÍLIA",
+            "index": 172,
+            "codigo": 996
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 173,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM METAFÍSICA - BRASÍLIA",
+            "index": 173,
+            "codigo": 926
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 174,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM MÚSICA - BRASÍLIA",
+            "index": 174,
+            "codigo": 873
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 175,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM NANOCIÊNCIA E NANOBIOTECNOLOGIA - BRASÍLIA",
+            "index": 175,
+            "codigo": 1502
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 176,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM NUTRIÇÃO HUMANA - BRASÍLIA",
+            "index": 176,
+            "codigo": 899
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 177,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ODONTOLOGIA - BRASÍLIA",
+            "index": 177,
+            "codigo": 907
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 178,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM PATOLOGIA MOLECULAR - BRASÍLIA",
+            "index": 178,
+            "codigo": 1496
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 179,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM POLÍTICA SOCIAL - BRASÍLIA",
+            "index": 179,
+            "codigo": 1499
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 180,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM POLÍTICAS PÚBLICAS PARA INFÂNCIA E JUVENTUDE (PROFISSIONAL) - BRASÍLIA",
+            "index": 180,
+            "codigo": 1624
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 181,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM PROCESSOS DE DESENVOLVIMENTO HUMANO E SAÚDE - BRASÍLIA",
+            "index": 181,
+            "codigo": 982
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 182,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM PROFARTES (PROFISSIONAL) - BRASÍLIA",
+            "index": 182,
+            "codigo": 1618
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 183,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM PROFARTES - BRASÍLIA",
+            "index": 183,
+            "codigo": 1545
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 184,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM PROFNIT - PROPRIEDADE INTELECTUAL E TRANSFERÊNCIA DE TECNOLOGIA PARA A INOVAÇÃO (PROFISSIONAL) - BRASÍLIA",
+            "index": 184,
+            "codigo": 978
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 185,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM PSICOLOGIA CLÍNICA E CULTURA - BRASÍLIA",
+            "index": 185,
+            "codigo": 986
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 186,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM PSICOLOGIA DO DESENVOLVIMENTO E ESCOLAR - BRASÍLIA",
+            "index": 186,
+            "codigo": 1497
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 187,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM PSICOLOGIA SOCIAL, DO TRABALHO E DAS ORGANIZAÇÕES (PSTO) - BRASÍLIA",
+            "index": 187,
+            "codigo": 913
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 188,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM QUÍMICA - BRASÍLIA",
+            "index": 188,
+            "codigo": 844
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 189,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM REDE NACIONAL PARA ENSINO DAS CIÊNCIAS AMBIENTAIS (PROFISSIONAL) - BRASÍLIA",
+            "index": 189,
+            "codigo": 1622
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 190,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM REDE NACIONAL PARA ENSINO DAS CIÊNCIAS AMBIENTAIS - BRASÍLIA",
+            "index": 190,
+            "codigo": 1546
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 191,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM RELAÇÕES INTERNACIONAIS - BRASÍLIA",
+            "index": 191,
+            "codigo": 1498
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 192,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM SAÚDE ANIMAL - BRASÍLIA",
+            "index": 192,
+            "codigo": 872
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 193,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM SAÚDE COLETIVA (PROFISSIONAL) - BRASÍLIA",
+            "index": 193,
+            "codigo": 1623
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 194,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM SAÚDE COLETIVA - BRASÍLIA",
+            "index": 194,
+            "codigo": 908
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 195,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM SISTEMAS MECATRÔNICOS - BRASÍLIA",
+            "index": 195,
+            "codigo": 912
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 196,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM SOCIOLOGIA - BRASÍLIA",
+            "index": 196,
+            "codigo": 915
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 197,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM SUSTENTABILIDADE JUNTO A POVOS E TERRITÓRIOS TRADICIONAIS - BRASÍLIA",
+            "index": 197,
+            "codigo": 1504
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 198,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM TECNOLOGIA AMBIENTAL E RECURSOS HÍDRICOS - BRASÍLIA",
+            "index": 198,
+            "codigo": 830
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 199,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM TECNOLOGIAS QUÍMICA E BIOLÓGICA - BRASÍLIA",
+            "index": 199,
+            "codigo": 930
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 200,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM TRANSPORTES - BRASÍLIA",
+            "index": 200,
+            "codigo": 828
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 201,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO EM ZOOLOGIA - BRASÍLIA",
+            "index": 201,
+            "codigo": 1500
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 202,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO PROFBIO ENSINO DE BIOLOGIA EM REDE NACIONAL (PROFISSIONAL) - BRASÍLIA",
+            "index": 202,
+            "codigo": 1543
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 203,
+        "fields": {
+            "nome": "PROGRAMA DE PÓS-GRADUAÇÃO PROFISSIONAL EM ENGENHARIA ELÉTRICA - BRASÍLIA",
+            "index": 203,
+            "codigo": 1621
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 204,
+        "fields": {
+            "nome": "REITORIA - BRASÍLIA",
+            "index": 204,
+            "codigo": 69
+        }
+    },
+    {
+        "model": "departamentos.departamento",
+        "pk": 205,
+        "fields": {
+            "nome": "SECRETARIA DE ADMINISTRACAO ACADEMICA - BRASÍLIA",
+            "index": 205,
+            "codigo": 140
+        }
+    }
+]
