@@ -1,2 +1,2 @@
-# matriculaaa
-Webcrawler pra matrícula extraordinária pelo SIGAA. Favor não DDoS.
+# matriculaAA
+Bot que realiza matrícula extraordinária pelo SIGAA automaticamente. Favor não DDoS.
