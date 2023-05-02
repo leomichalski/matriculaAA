@@ -1,0 +1,155 @@
+version: '3'
+
+volumes:
+  api_local_postgres_data: {}
+  api_local_postgres_data_backups: {}
+
+services:
+
+  ######################### SCRAPING RELATED SERVICES #########################
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.3.3
+    container_name: zookeeper
+    networks:
+      - broker-kafka
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.3.3
+    container_name: kafka
+    networks:
+      - broker-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "9101:9101"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: kafka:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      # Also notice that KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR is set to 1. 
+      # This is required when you are running with a single-node cluster.
+      # If you have three or more nodes, you can use the default.
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      # KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      # KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      # KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
+      # KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      # KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    healthcheck:
+      test: ["CMD", "kafka-topics", "--list", "--bootstrap-server", "kafka:29092"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  detector-de-vagas:
+    container_name: detector_de_vagas
+    build:
+      context: ./scraping
+      dockerfile: ./detector-de-vagas/Dockerfile
+    env_file:
+      - ./.envs/.local/.postgres
+    environment:
+      - PYTHONUNBUFFERED=TRUE
+      - KAFKA_TOPIC_VAGA_DISPONIVEL=vaga_disponivel
+      - KAFKA_SERVER=kafka
+      - KAFKA_PORT=29092
+    restart: "always"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    networks:
+      - broker-kafka
+      - database-access
+
+  realizador-de-matriculas:
+    container_name: realizador_de_matriculas
+    build:
+      context: ./scraping
+      dockerfile: ./realizador-de-matriculas/Dockerfile
+    env_file:
+      - ./.envs/.local/.postgres
+    environment:
+      - PYTHONUNBUFFERED=TRUE
+      - KAFKA_TOPIC_VAGA_DISPONIVEL=vaga_disponivel
+      - KAFKA_SERVER=kafka
+      - KAFKA_PORT=29092
+    restart: "always"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    networks:
+      - broker-kafka
+      - database-access
+
+  ############################ API RELATED SERVICES ############################
+
+  django:
+    build:
+      context: .
+      dockerfile: ./api/docker/local/django/Dockerfile
+    image: api_local_django
+    container_name: api_local_django
+    restart: "always"
+    depends_on:
+      - postgres
+    volumes:
+      - ./api:/app:z
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    ports:
+      - '8000:8000'
+    command: /start
+    networks:
+      - database-access
+
+  node:
+    build:
+      context: ./api
+      dockerfile: ./docker/local/node/Dockerfile
+    image: api_local_node
+    container_name: api_local_node
+    restart: "always"
+    depends_on:
+      - django
+    volumes:
+      - ./api:/app:z
+      # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
+      - /app/node_modules
+    command: npm run dev
+    ports:
+      - '3000:3000'
+
+  ############################## OTHER SERVICE(S) ##############################
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./api/docker/production/postgres/Dockerfile
+    image: api_production_postgres
+    restart: "always"
+    container_name: api_local_postgres
+    volumes:
+      - api_local_postgres_data:/var/lib/postgresql/data
+      - api_local_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.local/.postgres
+    networks:
+      - database-access
+
+
+networks:
+  broker-kafka:
+    driver: bridge
+  database-access:
+    driver: bridge

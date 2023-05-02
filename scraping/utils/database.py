@@ -51,3 +51,34 @@ def listar_departamentos_interessantes(cursor):
         WHERE  ( interessa.turma_id = turmas.id );
     """)
     return [row[0] for row in cursor.fetchall()]
+
+
+def recupera_discente_por_id(cursor, id_discente):
+    cursor.execute(
+        """
+            SELECT matricula, senha, cpf, data_de_nascimento, email
+            FROM   discentes_discente as discente
+            WHERE  ( discente.id = %s );
+        """,
+        (id_discente,),
+    )
+    records = cursor.fetchone()
+    if records is None:
+        return None
+    matricula, senha, cpf, data_de_nascimento, email = records
+    matricula = str(matricula).rjust(9, '0')
+    cpf = str(cpf).rjust(11, '0')
+    return (matricula, senha, cpf, data_de_nascimento, email)
+
+
+def show_table_columns(cursor, table_name, schema_name='public'):
+    cursor.execute(
+        """
+            SELECT *
+            FROM   information_schema.columns
+            WHERE  table_schema = %s
+            AND    table_name   = %s;
+        """,
+        (schema_name, table_name)
+    )
+    return [row[3] for row in cursor.fetchall()]

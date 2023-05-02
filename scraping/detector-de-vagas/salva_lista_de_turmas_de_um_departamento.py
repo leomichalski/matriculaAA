@@ -53,7 +53,7 @@ def parse_args():
     )
     ap.add_argument(
         "--pasta-imagens-pyautogui",
-        type=str, default="elementos_das_telas_da_listagem_de_vagas",
+        type=str, default="elementos_das_telas",
         help="Pasta onde estão as imagens usadas para localizar elementos na tela."
     )
     ap.add_argument(

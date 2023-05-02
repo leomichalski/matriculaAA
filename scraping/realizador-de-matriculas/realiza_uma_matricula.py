@@ -7,7 +7,7 @@ docker run --rm -it -v ${PWD}:/curr -w /curr leommiranda/pyautogui \
   --codigo-disciplina="FGA0030" --nome-docente="BRUNO CESAR RIBAS" \
   --horario-codificado="35T6 35N1" \
   --pasta-destino-screenshots="screenshots" \
-  --pasta-imagens-pyautogui="elementos_das_telas_da_extraordinaria"
+  --pasta-imagens-pyautogui="elementos_das_telas"
 """
 
 import os
@@ -98,7 +98,7 @@ def parse_args():
     # informacoes relacionadas a imagens e a screenshots
     ap.add_argument(
         "--pasta-imagens-pyautogui",
-        type=str, default="elementos_das_telas_da_extraordinaria",
+        type=str, default="elementos_das_telas",
         help="Pasta onde estão as imagens usadas para localizar elementos na tela."
     )
     ap.add_argument(
@@ -110,12 +110,6 @@ def parse_args():
         "--run-number",
         type=int, default=0,
         help="Run number. Used only for screenshot versioning. Optional."
-    )
-    # outros argumentos
-    ap.add_argument(
-        "-t", "--time-out",
-        type=int, default=5,
-        help="Time out in seconds. Used to wait for elements to load."
     )
     args = ap.parse_args()
     # preprocessamento dos argumentos
@@ -135,8 +129,7 @@ def main(url_do_login,
          take_screenshots,
          pasta_imagens_pyautogui,
          pasta_destino_screenshots,
-         run_number,
-         time_out):
+         run_number):
     if measure_time:
         start_time = time.time()
 
