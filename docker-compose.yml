@@ -58,6 +58,7 @@ services:
       dockerfile: ./detector-de-vagas/Dockerfile
     env_file:
       - ./.envs/.local/.postgres
+      - ./.envs/.local/.superuser
       - ./.envs/.local/.email
     environment:
       - PYTHONUNBUFFERED=TRUE

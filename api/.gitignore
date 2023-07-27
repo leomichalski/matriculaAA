@@ -278,10 +278,3 @@ api/media/
 .ipython/
 api/static/webpack_bundles/
 webpack-stats.json
-
-# Sensitive data
-.env
-.envs/*
-!.envs/.local/.django
-!.envs/.local/.postgres
-.envs/.local/.email

@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Sensitive data
+.env
+.envs/*
+!.envs/.local/.django
+!.envs/.local/.postgres
+!.envs/.local/.superuser
+.envs/.local/.email
