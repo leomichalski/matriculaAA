@@ -7,9 +7,8 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 
 
-def send_email(body, subject, sender_password,
-               receiver_email='leonardomichalskim@gmail.com',
-               sender_email='leonardomichalskim@gmail.com',
+def send_email(body, subject, receiver_email,
+               sender_email, sender_password,
                file_attachment_list=[]):
     port = 465  # For SSL
 

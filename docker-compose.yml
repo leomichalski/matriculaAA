@@ -58,6 +58,7 @@ services:
       dockerfile: ./detector-de-vagas/Dockerfile
     env_file:
       - ./.envs/.local/.postgres
+      - ./.envs/.local/.email
     environment:
       - PYTHONUNBUFFERED=TRUE
       - KAFKA_TOPIC_VAGA_DISPONIVEL=vaga_disponivel

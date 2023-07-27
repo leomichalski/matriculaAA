@@ -35,6 +35,9 @@ def main(pasta_arquivos_html='arquivos_html',
     POSTGRES_USER = os.getenv('POSTGRES_USER')
     POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
 
+    SENDER_EMAIL = os.getenv('SENDER_EMAIL')
+    SENDER_PASSWORD = os.getenv('SENDER_PASSWORD')
+
     producer = KafkaProducer(
         bootstrap_servers=[f'{KAFKA_SERVER}:{KAFKA_PORT}'],
         value_serializer=lambda x: json.dumps(x).encode('utf-8')
@@ -108,9 +111,9 @@ def main(pasta_arquivos_html='arquivos_html',
                     send_email(
                         body="entre no sigaa o mais rápido possível\n" + str(nome_disciplina).lower() + "\n" + str(nome_docente_turma).lower(),
                         subject="vaga em " + str(nome_disciplina).lower(),
-                        sender_password="txkhauissqakizji",
                         receiver_email=email_discente,
-                        sender_email='leonardomichalskim@gmail.com'
+                        sender_email=SENDER_EMAIL,
+                        sender_password=SENDER_PASSWORD,
                     )
                     break
 
