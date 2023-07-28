@@ -16,14 +16,9 @@ def login_no_sigaa(pyautogui, matricula, senha, pasta_imagens_pyautogui):
     # PASSO: preencher o login do usuário
     # TODO: read image only once
     print('Preenchendo login...')
-    usuario_login_button = cv2.imread(
-        os.path.join(pasta_imagens_pyautogui, 'usuario_login.png')
-    )
-    usuario_login_button_width = usuario_login_button.shape[1]
     usuario_login_location = move_to(
         pyautogui=pyautogui,
         filename=os.path.join(pasta_imagens_pyautogui, 'usuario_login.png'),
-        xoffset=10+usuario_login_button_width
     )
     pyautogui.click()
     # TODO: my custom write() method with random delay between chars
@@ -32,14 +27,9 @@ def login_no_sigaa(pyautogui, matricula, senha, pasta_imagens_pyautogui):
     # PASSO: preencher a senha do usuário
     # TODO: read image only once
     print('Preenchendo senha...')
-    senha_login_button = cv2.imread(
-        os.path.join(pasta_imagens_pyautogui, 'senha_login.png'),
-    )
-    senha_login_button_width = senha_login_button.shape[1]
     senha_login_location = move_to(
         pyautogui=pyautogui,
         filename=os.path.join(pasta_imagens_pyautogui, 'senha_login.png'),
-        xoffset=10+senha_login_button_width
     )
     pyautogui.click()
     pyautogui.write(senha, interval=0.25)
