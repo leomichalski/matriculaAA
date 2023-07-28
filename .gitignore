@@ -130,7 +130,6 @@ dmypy.json
 
 # Sensitive data
 .env
-.envs/*
 !.envs/.local/.django
 !.envs/.local/.postgres
 !.envs/.local/.superuser
