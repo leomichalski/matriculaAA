@@ -116,6 +116,14 @@ def ir_pra_matricula_extraordinaria(pyautogui, pasta_imagens_pyautogui):
     pyautogui.click()
 
 
+def concordar_com_cookies(pyautogui, pasta_imagens_pyautogui):
+    _ = move_to(
+        pyautogui=pyautogui,
+        filename=os.path.join(pasta_imagens_pyautogui, 'ciente_dos_cookies.png'),
+    )
+    pyautogui.click()
+
+
 def buscar_disciplina_matricula_extraordinaria(pyautogui, codigo_disciplina,
                                                nome_docente,
                                                horario_codificado,

@@ -23,6 +23,7 @@ from utils.scraping import (
 from utils.sigaa import (
     login_no_sigaa,
     ir_pra_matricula_extraordinaria,
+    concordar_com_cookies,
     buscar_disciplina_matricula_extraordinaria,
     confirmar_dados_matricula_extraordinaria,
 )
@@ -179,6 +180,17 @@ def main(url_do_login,
         )
 
     ir_pra_matricula_extraordinaria(
+        pyautogui=pyautogui,
+        pasta_imagens_pyautogui=pasta_imagens_pyautogui,
+    )
+
+    if take_screenshots:
+        take_screenshot(
+            pasta_destino_screenshots=pasta_destino_screenshots,
+            run_number=run_number
+        )
+
+    concordar_com_cookies(
         pyautogui=pyautogui,
         pasta_imagens_pyautogui=pasta_imagens_pyautogui,
     )
