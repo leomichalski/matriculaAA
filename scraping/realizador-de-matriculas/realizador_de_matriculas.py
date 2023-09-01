@@ -68,7 +68,7 @@ def main(db_connection_timeout_s=60*5,
                 matricula, senha, cpf, data_de_nascimento, _ = info_discente
                 # faz matricula do discente na turma
                 realiza_uma_matricula(
-                    url_do_login='https://sigaa.unb.br/sigaa/verTelaLogin.do',
+                    url_do_login='https://sigaa.unb.br',
                     matricula=matricula,
                     senha=senha,
                     cpf=cpf,

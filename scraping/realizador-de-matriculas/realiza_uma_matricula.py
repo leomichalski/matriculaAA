@@ -44,7 +44,7 @@ def parse_args():
     # informacoes sobre o site SIGAA
     ap.add_argument(
         "--url-do-login",
-        type=str, default="https://sigaa.unb.br/sigaa/verTelaLogin.do",
+        type=str, default="https://sigaa.unb.br/",
         help="Numero da matricula do/da discente."
     )
     # informacoes sobre a/o discente
