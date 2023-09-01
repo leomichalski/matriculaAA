@@ -11,7 +11,6 @@ def connect_to_db(db_connection_timeout_s, **kwargs):
             conn = psycopg2.connect(**kwargs)
             # is connected
             if (conn.closed == 0):
-                print('Connected to database.')
                 break
             # time limit reached
             if (time.time() - start_db_connection_time > db_connection_timeout_s):

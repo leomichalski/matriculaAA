@@ -1,6 +1,7 @@
 import os
 import time
 import json
+import traceback
 
 from kafka import KafkaConsumer
 
@@ -36,6 +37,7 @@ def main(db_connection_timeout_s=60*5,
 
     for msg in message_consumer:
         # connect to db if not connected, exit if timeout happens
+        print('Conectando ao banco de dados...')
         conn, cursor = connect_to_db(
             db_connection_timeout_s,
             host=POSTGRES_HOST,
@@ -58,6 +60,7 @@ def main(db_connection_timeout_s=60*5,
                     processing_msg = False
                     continue
                 # busca as informacoes do discente no banco de dados
+                print("Recuperando informacoes do discente do banco de dados...")
                 info_discente = recupera_discente_por_id(
                     cursor, id_discente=msg.value['id_discente']
                 )
@@ -86,7 +89,8 @@ def main(db_connection_timeout_s=60*5,
                 message_consumer.commit()
                 break
             except:
-                time.sleep(0.05)
+                traceback.print_exc()
+                time.sleep(0.1)
         else:
             # quit processing the message, go to the next one
             message_consumer.commit()

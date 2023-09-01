@@ -131,6 +131,7 @@ def main(url_do_login,
          pasta_imagens_pyautogui,
          pasta_destino_screenshots,
          run_number):
+
     if measure_time:
         start_time = time.time()
 
@@ -144,6 +145,7 @@ def main(url_do_login,
             run_number=run_number
         )
 
+    print("Organizando janelas...")
     organizar_janelas(
         pyautogui=pyautogui,
         pasta_imagens_pyautogui=pasta_imagens_pyautogui,
@@ -155,6 +157,7 @@ def main(url_do_login,
             run_number=run_number
         )
 
+    print("Abrindo a URL do SIGAA...")
     abrir_url(
         pyautogui=pyautogui,
         url=url_do_login,
@@ -166,6 +169,7 @@ def main(url_do_login,
             run_number=run_number
         )
 
+    print("Logando...")
     login_no_sigaa(
         pyautogui=pyautogui,
         matricula=matricula,
@@ -179,6 +183,7 @@ def main(url_do_login,
             run_number=run_number
         )
 
+    print("Indo para a secao da matricula extraordinaria...")
     ir_pra_matricula_extraordinaria(
         pyautogui=pyautogui,
         pasta_imagens_pyautogui=pasta_imagens_pyautogui,
@@ -190,6 +195,7 @@ def main(url_do_login,
             run_number=run_number
         )
 
+    print("Concordando com os cookies...")
     concordar_com_cookies(
         pyautogui=pyautogui,
         pasta_imagens_pyautogui=pasta_imagens_pyautogui,
@@ -201,6 +207,7 @@ def main(url_do_login,
             run_number=run_number
         )
 
+    print("Buscando disciplina...")
     buscar_disciplina_matricula_extraordinaria(
         pyautogui=pyautogui,
         codigo_disciplina=codigo_disciplina,
@@ -215,6 +222,7 @@ def main(url_do_login,
             run_number=run_number
         )
 
+    print("Confirmando dados para realizar matricula extraordinaria...")
     confirmar_dados_matricula_extraordinaria(
         pyautogui=pyautogui,
         cpf=cpf,
@@ -229,6 +237,8 @@ def main(url_do_login,
             pasta_destino_screenshots=pasta_destino_screenshots,
             run_number=run_number
         )
+
+    print("Tentativa de matricula extraordinaria finalizada.")
 
     if measure_time:
         print("elapsed time:", time.time() - start_time)

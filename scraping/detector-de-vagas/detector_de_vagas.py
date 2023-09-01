@@ -38,6 +38,7 @@ def main(pasta_arquivos_html='arquivos_html',
     SENDER_EMAIL = os.getenv('SENDER_EMAIL')
     SENDER_PASSWORD = os.getenv('SENDER_PASSWORD')
 
+    print("Inicializando produtor kafka...")
     producer = KafkaProducer(
         bootstrap_servers=[f'{KAFKA_SERVER}:{KAFKA_PORT}'],
         value_serializer=lambda x: json.dumps(x).encode('utf-8')
@@ -48,6 +49,7 @@ def main(pasta_arquivos_html='arquivos_html',
         # tambem utilizado para calcular o tempo de validade de cada mensagem do topico VAGA_DISPONIVEL
         sleep_duration = randint(min_interval_s, max_interval_s)
         # connect to db if not connected, exit if timeout happens
+        print("Conectando ao banco de dados...")
         conn, cursor = connect_to_db(
             db_connection_timeout_s,
             host=POSTGRES_HOST,
@@ -56,6 +58,7 @@ def main(pasta_arquivos_html='arquivos_html',
             user=POSTGRES_USER,
             password=POSTGRES_PASSWORD,
         )
+        print("Recuperando (do banco de dados) informacoes sobre as turmas que interessam aos discentes...")
         turma_interessa_discente = listar_relacao_turma_interessa_discente(
             cursor
         )
@@ -63,6 +66,7 @@ def main(pasta_arquivos_html='arquivos_html',
         for codigo_disciplina, nome_disciplina, nome_docente_turma, horario_codificado_turma, id_discente, email_discente, idx_departamento in turma_interessa_discente:
             if idx_departamento != idx_departamento_previo:
                 # faz o webscraping do SIGAA, e salva a pagina html da lista de turmas
+                print("Salvando lista do departamento " + str(idx_departamento) + "...")
                 salva_lista_de_turmas_de_um_departamento(
                     url_inicial='https://sigaa.unb.br/sigaa/public/turmas/listar.jsf',
                     index_do_departamento_na_lista=idx_departamento,
@@ -109,8 +113,11 @@ def main(pasta_arquivos_html='arquivos_html',
                     )
                     # mandar email para o discente
                     send_email(
-                        body="entre no sigaa o mais rápido possível\n" + str(nome_disciplina).lower() + "\n" + str(nome_docente_turma).lower(),
-                        subject="vaga em " + str(nome_disciplina).lower(),
+                        body=f"Entre no sigaa o mais rápido possível\n" \
+                             + str(nome_disciplina).lower() + "\n" \
+                             + str(nome_docente_turma).lower() + "\n" \
+                             + "Quantidade de vagas: " + str(turma_encontrada['quantidade_de_vagas']),
+                        subject="Vaga em " + str(nome_disciplina).lower() + "!",
                         receiver_email=email_discente,
                         sender_email=SENDER_EMAIL,
                         sender_password=SENDER_PASSWORD,
