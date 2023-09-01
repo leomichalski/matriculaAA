@@ -69,6 +69,8 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+    ports:
+      - '5901:5901'
     networks:
       - broker-kafka
       - database-access
@@ -89,6 +91,8 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+    ports:
+      - '5902:5902'
     networks:
       - broker-kafka
       - database-access
