@@ -4,8 +4,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-
-
+# Wait for postgres to become available
 
 if [ -z "${POSTGRES_USER}" ]; then
     base_postgres_image_default_user='postgres'
@@ -19,7 +18,7 @@ import time
 
 import psycopg2
 
-suggest_unrecoverable_after = 30
+unrecoverable_after = 30  # in seconds
 start = time.time()
 
 while True:
@@ -35,12 +34,34 @@ while True:
     except psycopg2.OperationalError as error:
         sys.stderr.write("Waiting for PostgreSQL to become available...\n")
 
-        if time.time() - start > suggest_unrecoverable_after:
+        if time.time() - start > unrecoverable_after:
             sys.stderr.write("  This is taking longer than expected. The following exception may be indicative of an unrecoverable error: '{}'\n".format(error))
 
-    time.sleep(1)
+        time.sleep(1)
 END
 
 >&2 echo 'PostgreSQL is available'
 
 exec "$@"
+
+# Migrate
+python manage.py migrate
+
+# Create super user if not exists
+cat <<EOF | python manage.py shell
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
+
+if not User.objects.filter(email="$SUPERUSER_EMAIL").exists():
+    User.objects.create_superuser("$SUPERUSER_EMAIL", "$SUPERUSER_PASSWORD")
+else:
+    print('Default superuser exists already, not created.')
+EOF
+
+# Load departments data to the database
+python manage.py loaddata todos_os_departamentos.json
+
+#exec python manage.py runserver 0.0.0.0:443
+exec python manage.py runserver 0.0.0.0:8000

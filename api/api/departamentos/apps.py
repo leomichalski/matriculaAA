@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class DepartamentosConfig(AppConfig):
-    name = 'departamentos'
+    name = 'api.departamentos'
     verbose_name = 'Departamentos'

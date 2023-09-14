@@ -2,7 +2,7 @@ from django.db import models
 from model_utils.models import TimeStampedModel  # Model with created and modified columns
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
-from turmas.models import Turma
+from api.turmas.models import Turma
 
 
 class Discente(TimeStampedModel):

@@ -54,8 +54,8 @@ services:
   detector-de-vagas:
     container_name: detector_de_vagas
     build:
-      context: ./scraping
-      dockerfile: ./detector-de-vagas/Dockerfile
+      context: ./
+      dockerfile: ./scraping/detector-de-vagas/Dockerfile
     env_file:
       - ./.envs/.local/.postgres
       - ./.envs/.local/.superuser
@@ -78,8 +78,8 @@ services:
   realizador-de-matriculas:
     container_name: realizador_de_matriculas
     build:
-      context: ./scraping
-      dockerfile: ./realizador-de-matriculas/Dockerfile
+      context: ./
+      dockerfile: ./scraping/realizador-de-matriculas/Dockerfile
     env_file:
       - ./.envs/.local/.postgres
     environment:
@@ -101,48 +101,33 @@ services:
 
   django:
     build:
-      context: .
-      dockerfile: ./api/docker/local/django/Dockerfile
+      context: ./api
+      dockerfile: ./Dockerfile.local
     image: api_local_django
     container_name: api_local_django
     restart: "always"
     depends_on:
       - postgres
-    volumes:
-      - ./api:/app:z
+    #volumes:
+    #  - ./api:/api:z
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.local
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.superuser
       - ./.envs/.local/.postgres
     ports:
       - '8000:8000'
-    command: /start
+#      - '443:443'
     networks:
       - database-access
-
-  node:
-    build:
-      context: ./api
-      dockerfile: ./docker/local/node/Dockerfile
-    image: api_local_node
-    container_name: api_local_node
-    restart: "always"
-    depends_on:
-      - django
-    volumes:
-      - ./api:/app:z
-      # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
-      - /app/node_modules
-    command: npm run dev
-    ports:
-      - '3000:3000'
 
   ############################## OTHER SERVICE(S) ##############################
 
   postgres:
     build:
-      context: .
-      dockerfile: ./api/docker/production/postgres/Dockerfile
+      context: ./database
+      dockerfile: ./Dockerfile
     image: api_production_postgres
     restart: "always"
     container_name: api_local_postgres

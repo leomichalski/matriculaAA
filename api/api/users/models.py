@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField, EmailField
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from api.users.managers import UserManager
@@ -8,7 +7,7 @@ from api.users.managers import UserManager
 
 class User(AbstractUser):
     """
-    Default custom user model for api.
+    Default custom user model for Scraper API.
     If adding fields that need to be filled at user signup,
     check forms.SignupForm and forms.SocialSignupForms accordingly.
     """
@@ -25,11 +24,3 @@ class User(AbstractUser):
 
     objects = UserManager()
 
-    def get_absolute_url(self) -> str:
-        """Get URL for user's detail view.
-
-        Returns:
-            str: URL for user detail.
-
-        """
-        return reverse("users:detail", kwargs={"pk": self.id})

@@ -12,7 +12,8 @@ from utils.sigaa import (
     definir_arquivo_html_mais_recente,
     parse_lista_de_turmas,
 )
-from utils.database import (
+
+from database import (
     connect_to_db,
     listar_relacao_turma_interessa_discente
 )

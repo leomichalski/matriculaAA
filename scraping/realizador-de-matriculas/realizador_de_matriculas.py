@@ -5,7 +5,7 @@ import traceback
 
 from kafka import KafkaConsumer
 
-from utils.database import (
+from database import (
     connect_to_db,
     recupera_discente_por_id,
 )

@@ -8,17 +8,19 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /scraping
+WORKDIR /app
 
-COPY detector-de-vagas/requirements.txt /tmp/
+COPY scraping/detector-de-vagas/requirements.txt /tmp/
 RUN pip install --default-timeout=15000 --no-cache-dir -r /tmp/requirements.txt
 
-COPY detector-de-vagas/elementos_das_telas elementos_das_telas
-COPY detector-de-vagas/detector_de_vagas.py .
-COPY detector-de-vagas/salva_lista_de_turmas_de_um_departamento.py .
+COPY scraping/detector-de-vagas/elementos_das_telas elementos_das_telas
+COPY scraping/detector-de-vagas/detector_de_vagas.py .
+COPY scraping/detector-de-vagas/salva_lista_de_turmas_de_um_departamento.py .
 
-COPY utils utils
+COPY scraping/utils utils
+
+COPY database/database.py .
 
 RUN mkdir arquivos_html
 
-CMD ["python3", "detector_de_vagas.py"]
+CMD ["python3", "/app/detector_de_vagas.py"]

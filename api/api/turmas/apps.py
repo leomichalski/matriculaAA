@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class TurmasConfig(AppConfig):
-    name = 'turmas'
+    name = 'api.turmas'
     verbose_name = 'Turmas'
