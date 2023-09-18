@@ -37,15 +37,19 @@ do
      sleep 1
 done
 
-# To exit the previous loops, run
-# docker compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d ${SERVER_NAME} -d www.${SERVER_NAME}
-# TODO: automate certificate generation and renewing
-
 # Enable access to the API
-# TODO: check if it really works
 cp /etc/nginx/conf.d/02_api_https.conf.bak.bak /etc/nginx/conf.d/02_api_https.conf
-nginx -s reload;
+nginx -s reload
 
 echo "API access via HTTPS enabled."
 
-sleep infinity
+# Sleeps while keeping the ssl certificates up to date
+trap exit TERM
+
+while true
+do
+    # The SSL certificates are renewed by certbot about 30 days before the expire date,
+    # so it should be okay to reload nginx in 0h to 24h after the renew.
+    sleep 24h & wait ${!}
+    nginx -s reload
+done

@@ -2,3 +2,5 @@
 # ------------------------------------------------------------------------------
 USE_DOCKER=yes
 IPYTHONDIR=/api/.ipython
+SUPERUSER_EMAIL=super
+SUPERUSER_PASSWORD=senha12345

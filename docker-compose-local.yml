@@ -58,8 +58,8 @@ services:
       dockerfile: ./scraping/detector-de-vagas/Dockerfile
     env_file:
       - ./.envs/.local/.postgres
-      - ./.envs/.local/.superuser
       - ./.envs/.local/.email
+      - ./.envs/.local/.email_password
     environment:
       - PYTHONUNBUFFERED=TRUE
       - KAFKA_TOPIC_VAGA_DISPONIVEL=vaga_disponivel
@@ -114,7 +114,6 @@ services:
       - DJANGO_SETTINGS_MODULE=config.settings.local
     env_file:
       - ./.envs/.local/.django
-      - ./.envs/.local/.superuser
       - ./.envs/.local/.postgres
     ports:
       - '8000:8000'

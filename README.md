@@ -9,6 +9,18 @@ Bot que realiza matrícula extraordinária pelo SIGAA automaticamente. Favor nã
     - [Configurar e rodar o painel administrativo](#configurar-e-rodar-o-painel-administrativo)
     - [Rodar o "detector-de-vagas"](#rodar-o-detector-de-vagas)
     - [Rodar o "realizador-de-matriculas"](#rodar-o-realizador-de-matriculas)
+- [Como rodar uma instância pública com Docker Compose](#como-rodar-uma-instância-pública-com-docker-compose)
+    - [Acessar um terminal no servidor](#acessar-um-terminal-no-servidor)
+    - [Construir imagem Docker necessária para construir as outras imagens](#construir-imagem-docker-necessária-para-construir-as-outras-imagens-1)
+    - [Clonar este repositório](#clonar-este-repositório-1)
+    - [Configurar um email para envio de notificações de novas vagas](#configurar-um-email-para-envio-de-notificações-de-novas-vagas-1)
+    - [Configurar variáveis do PostgreSQL](#configurar-variáveis-do-postgresql)
+    - [Configurar variáveis de ambiente do Django, incluindo superusuário e senha do painel administrativo](#configurar-variáveis-de-ambiente-do-django-incluindo-superusuário-e-senha-do-painel-administrativo)
+    - [Configurar domínio do servidor como uma variável de ambiente](#configurar-domínio-do-servidor-como-uma-variável-de-ambiente)
+    - [Construir as imagens Docker](#construir-as-imagens-docker-1)
+    - [Configurar e rodar o painel administrativo](#configurar-e-rodar-o-painel-administrativo-1)
+    - [Rodar o "detector-de-vagas"](#rodar-o-detector-de-vagas-1)
+    - [Rodar o "realizador-de-matriculas"](#rodar-o-realizador-de-matriculas-1)
 
 
 ## Como rodar uma instância local com Docker
@@ -38,14 +50,19 @@ Caso o provedor escolhido seja o Gmail, no exemplo abaixo, substituir "leonardom
 # Navegar até este repositório
 cd matriculaAA
 
-# Criar arquivo ".envs/.local/.email" que define as variáveis de ambiente necessárias
+# Criar arquivo ".envs/.local/.email" com o email
 echo -n "\
 SENDER_EMAIL=leonardomichalskim@gmail.com
-SENDER_PASSWORD=txkhauissqakizji
 " > .envs/.local/.email
+
+# Criar arquivo ".envs/.local/.email_password" com a senha do email
+echo -n "\
+SENDER_PASSWORD=txkhauissqakizji
+" > .envs/.local/.email_password
 ```
 
 Obs: a senha "txkhauissqakizji" deste exemplo não funciona mais.
+
 
 ##### Construir as imagens Docker
 
@@ -109,31 +126,18 @@ Caso o provedor escolhido seja o Gmail, no exemplo abaixo, substituir "leonardom
 # Navegar até este repositório
 cd matriculaAA
 
-# Criar arquivo ".envs/.production/.email" que define as variáveis de ambiente necessárias
+# Criar arquivo ".envs/.production/.email" com o email
 echo -n "\
 SENDER_EMAIL=leonardomichalskim@gmail.com
-SENDER_PASSWORD=txkhauissqakizji
 " > .envs/.production/.email
+
+# Criar arquivo ".envs/.production/.email_password" com a senha do email
+echo -n "\
+SENDER_PASSWORD=txkhauissqakizji
+" > .envs/.production/.email_password
 ```
 
 Obs: a senha "txkhauissqakizji" deste exemplo não funciona mais.
-
-##### Configurar superusuário e senha do painel administrativo
-No exemplo abaixo, substituir "TROCAR ESTE EMAIL DE SUPERUSUARIO" e "TROCAR ESTA SENHA DE SUPERUSUARIO" pelos dados adequados. É possível utilizar o arquivo [.envs/.local/.superuser](/.envs/.local/.superuser) como exemplo.
-
-```
-# Navegar até este repositório
-cd matriculaAA
-
-# Criar pasta caso não exista
-mkdir -p .envs/.production
-
-# Criar arquivo ".envs/.production/.superuser" que define as variáveis de ambiente necessárias
-echo -n "\
-SUPERUSER_EMAIL=TROCAR ESTE EMAIL DE SUPERUSUARIO
-SUPERUSER_PASSWORD=TROCAR ESTA SENHA DE SUPERUSUARIO
-" > .envs/.production/.superuser
-```
 
 ##### Configurar variáveis do PostgreSQL
 No exemplo abaixo, substituir "NOME DO BANCO", "NOME DE USUARIO DO BANCO" e "SENHA DO USUARIO DO BANCO" pelos dados adequados. É possível utilizar o arquivo [.envs/.local/.postgres](/.envs/.local/.postgres) como exemplo.
@@ -155,7 +159,7 @@ POSTGRES_PASSWORD=SENHA DO USUARIO DO BANCO
 " > .envs/.production/.postgres
 ```
 
-##### Configurar variáveis de ambiente do Django
+##### Configurar variáveis de ambiente do Django, incluindo superusuário e senha do painel administrativo
 
 Para gerar uma [chave secreta do Django](https://docs.djangoproject.com/en/dev/ref/settings/#secret-key), basta rodar o seguinte código em Python em um ambiente com o Django instalado.
 
@@ -165,7 +169,7 @@ from django.core.management.utils import get_random_secret_key
 print(get_random_secret_key())
 ```
 
-No exemplo abaixo, substituir "CHAVE SECRETA DO DJANGO" pelo chave gerada no passo anterior.
+No exemplo abaixo, substituir "CHAVE SECRETA DO DJANGO" pelo chave gerada no passo anterior. Substituir "TROCAR ESTE EMAIL DE SUPERUSUARIO" e "TROCAR ESTA SENHA DE SUPERUSUARIO" pelos dados adequados. É possível utilizar o arquivo [.envs/.local/.django](/.envs/.local/.django) como exemplo.
 
 ```
 # Navegar até este repositório
@@ -174,9 +178,11 @@ cd matriculaAA
 # Criar pasta caso não exista
 mkdir -p .envs/.production
 
-# Criar arquivo ".envs/.production/.django" que define a variável de ambiente necessária
+# Criar arquivo ".envs/.production/.django" que define as variáveis de ambiente necessárias
 echo -n "\
 DJANGO_SECRET_KEY='CHAVE SECRETA DO DJANGO'
+SUPERUSER_EMAIL=TROCAR ESTE EMAIL DE SUPERUSUARIO
+SUPERUSER_PASSWORD=TROCAR ESTA SENHA DE SUPERUSUARIO
 " > .envs/.production/.django
 ```
 
@@ -203,11 +209,11 @@ docker-compose build
 ```
 
 ##### Configurar e rodar o painel administrativo
-Com a API e o banco de dados, é possível cadastrar estudantes e que turmas interessam a esses estudantes. Também é criado um proxy reverso, que serve para servir arquivos estáticos e para intermediar com o — protocolo HTTPS — o tráfego externo até a API.
+Com o banco de dados (postgres) e o painel (django), é possível cadastrar estudantes e que turmas interessam a esses estudantes. Neste caso, o proxy reverso (nginx) serve para servir arquivos estáticos e para intermediar com o — protocolo HTTPS — o tráfego externo até a API. O cerbot mantém atualizados os certicados SSL usados no protocolo HTTPS.
 
 ```
 # Rodar painel
-docker-compose up django
+docker-compose up postgres django nginx certbot
 
 # Acessar o painel em ${DOMINIO}/admin , utilizando superusuário e senha definidos anteriormente.
 # Agora, basta cadastrar turmas e discentes. Os departamentos já foram populados automaticamente.
