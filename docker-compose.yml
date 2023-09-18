@@ -1,0 +1,178 @@
+version: '3'
+
+volumes:
+  api_production_postgres_data: {}
+  api_production_postgres_data_backups: {}
+  api_static_files: {}
+  api_certbot_www: {}
+  api_certbot_conf: {}
+
+services:
+
+  ######################### SCRAPING RELATED SERVICES #########################
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.3.3
+    container_name: zookeeper
+    networks:
+      - broker-kafka
+    # TODO: check if port 2181 is really necessary in production
+    ports:
+      - "2181:2181"  # protected by the firewall anyway
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.3.3
+    container_name: kafka
+    networks:
+      - broker-kafka
+    depends_on:
+      - zookeeper
+    # TODO: check if port 9092 is really necessary in production
+    # TODO: check if port 9101 is really necessary in production
+    ports:
+      - "9092:9092"  # protected by the firewall anyway
+      - "9101:9101"  # protected by the firewall anyway
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: kafka:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      # Also notice that KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR is set to 1. 
+      # This is required when you are running with a single-node cluster.
+      # If you have three or more nodes, you can use the default.
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      # KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      # KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      # KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
+      # KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      # KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    healthcheck:
+      test: ["CMD", "kafka-topics", "--list", "--bootstrap-server", "kafka:29092"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  detector-de-vagas:
+    container_name: detector_de_vagas
+    build:
+      context: ./
+      dockerfile: ./scraping/detector-de-vagas/Dockerfile
+    env_file:
+      - ./.envs/.production/.postgres
+      - ./.envs/.production/.superuser
+      - ./.envs/.production/.email
+    environment:
+      - PYTHONUNBUFFERED=TRUE
+      - KAFKA_TOPIC_VAGA_DISPONIVEL=vaga_disponivel
+      - KAFKA_SERVER=kafka
+      - KAFKA_PORT=29092
+    restart: "always"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    networks:
+      - broker-kafka
+      - database-access
+
+  realizador-de-matriculas:
+    container_name: realizador_de_matriculas
+    build:
+      context: ./
+      dockerfile: ./scraping/realizador-de-matriculas/Dockerfile
+    env_file:
+      - ./.envs/.production/.postgres
+    environment:
+      - PYTHONUNBUFFERED=TRUE
+      - KAFKA_TOPIC_VAGA_DISPONIVEL=vaga_disponivel
+      - KAFKA_SERVER=kafka
+      - KAFKA_PORT=29092
+    restart: "always"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    networks:
+      - broker-kafka
+      - database-access
+
+  ############################ API RELATED SERVICES ############################
+
+  django:
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    image: api_production_django
+    container_name: api_production_django
+    restart: "always"
+    depends_on:
+      - postgres
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+    env_file:
+      - ./.envs/.production/.django
+      - ./.envs/.production/.superuser
+      - ./.envs/.production/.postgres
+      - ./.envs/.production/.server_name
+    networks:
+      - django-access
+      - database-access
+    volumes:
+      - api_static_files:/api/static/:rw
+
+  ############################## OTHER SERVICE(S) ##############################
+
+  postgres:
+    build:
+      context: ./database
+      dockerfile: ./Dockerfile
+    image: api_production_postgres
+    restart: "always"
+    container_name: api_production_postgres
+    volumes:
+      - api_production_postgres_data:/var/lib/postgresql/data:rw
+      - api_production_postgres_data_backups:/backups:rw
+    env_file:
+      - ./.envs/.production/.postgres
+    networks:
+      - database-access
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: ./Dockerfile
+    image: api_production_nginx
+    restart: "always"
+    depends_on:
+      - django
+    container_name: api_production_nginx
+    env_file:
+      - ./.envs/.production/.server_name
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - django-access
+    volumes:
+      # ":ro" means "read-only"
+      - api_static_files:/usr/share/nginx/static/:ro
+      - api_certbot_www:/var/www/certbot/:ro
+      - api_certbot_conf:/etc/nginx/ssl/:ro
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      # ":rw" stands for "read and write"
+      - api_certbot_www:/var/www/certbot/:rw
+      - api_certbot_conf:/etc/letsencrypt/:rw
+
+networks:
+  broker-kafka:
+    driver: bridge
+  database-access:
+    driver: bridge
+  django-access:
+    driver: bridge

@@ -1,0 +1,51 @@
+#!/bin/sh
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+# SSL certificate path
+FULLCHAIN=/etc/nginx/ssl/live/${SERVER_NAME}/fullchain.pem
+PRIVKEY=/etc/nginx/ssl/live/${SERVER_NAME}/privkey.pem
+
+# Delete the default.conf file
+if [ -f "/etc/nginx/conf.d/default.conf" ] ; then
+    rm "/etc/nginx/conf.d/default.conf"
+fi
+
+# Substitute placeholders with current environment variables
+export DOLLAR="$"
+
+envsubst < /etc/nginx/conf.d/01_api_http.conf.bak | tee /etc/nginx/conf.d/01_api_http.conf.bak.bak > /dev/null 2>&1
+envsubst < /etc/nginx/conf.d/02_api_https.conf.bak | tee /etc/nginx/conf.d/02_api_https.conf.bak.bak > /dev/null 2>&1
+
+# Enable "/.well-known/acme-challenge/" endpoint
+cp /etc/nginx/conf.d/01_api_http.conf.bak.bak /etc/nginx/conf.d/01_api_http.conf
+echo "'/.well-known/acme-challenge/' endpoint enabled."
+
+# Start nginx process
+nginx -g "daemon off;" &
+
+# Wait for SSL certificates before enabling HTTPS
+until [ -f ${FULLCHAIN} ]
+do
+     sleep 1
+done
+
+until [ -f ${PRIVKEY} ]
+do
+     sleep 1
+done
+
+# To exit the previous loops, run
+# docker compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d ${SERVER_NAME} -d www.${SERVER_NAME}
+# TODO: automate certificate generation and renewing
+
+# Enable access to the API
+# TODO: check if it really works
+cp /etc/nginx/conf.d/02_api_https.conf.bak.bak /etc/nginx/conf.d/02_api_https.conf
+nginx -s reload;
+
+echo "API access via HTTPS enabled."
+
+sleep infinity
