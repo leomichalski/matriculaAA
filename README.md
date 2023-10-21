@@ -1,7 +1,7 @@
 # matriculaAA
 Bot que realiza matrícula extraordinária pelo SIGAA automaticamente. Favor não DDoS.
 
-- [Como rodar uma instância local com Docker](#como-rodar-uma-instância-local-com-docker)
+- [Como rodar uma instância local com Docker Compose](#como-rodar-uma-instância-local-com-docker-compose)
     - [Construir imagem Docker necessária para construir as outras imagens](#construir-imagem-docker-necessária-para-construir-as-outras-imagens)
     - [Clonar este repositório](#clonar-este-repositório)
     - [Configurar um email para envio de notificações de novas vagas](#configurar-um-email-para-envio-de-notificações-de-novas-vagas)
@@ -23,7 +23,7 @@ Bot que realiza matrícula extraordinária pelo SIGAA automaticamente. Favor nã
     - [Rodar o "realizador-de-matriculas"](#rodar-o-realizador-de-matriculas-1)
 
 
-## Como rodar uma instância local com Docker
+## Como rodar uma instância local com Docker Compose
 É necessário ter [Docker](https://docs.docker.com/get-docker/) e [docker-compose](https://docs.docker.com/compose/) instalados. Não é seguro rodar uma instância pública desta forma, pois as senhas do Django e do PostgreSQL para desenvolvimento local estão públicas no [repositório do GitHub](https://github.com/leomichalski/matriculaAA).
 
 ##### Construir imagem Docker necessária para construir as outras imagens
@@ -67,7 +67,7 @@ Obs: a senha "txkhauissqakizji" deste exemplo não funciona mais.
 ##### Construir as imagens Docker
 
 ```
-docker-compose -f docker-compose-local.yml build
+docker compose -f deploy/compose/docker-compose-local.yml --project-directory . build
 ```
 
 ##### Configurar e rodar o painel administrativo
@@ -75,7 +75,7 @@ Com a API e o banco de dados, é possível cadastrar estudantes e que turmas int
 
 ```
 # Rodar painel
-docker-compose -f docker-compose-local.yml up django
+docker compose -f deploy/compose/docker-compose-local.yml --project-directory . up django
 
 # Acessar o painel em localhost:8000/admin . O superusuário é "super" e a senha é "senha12345".
 # Agora, basta cadastrar turmas e discentes. Os departamentos já foram populados automaticamente.
@@ -85,14 +85,14 @@ docker-compose -f docker-compose-local.yml up django
 Com o "detector-de-vagas", é possível acionar alertas quando surge uma vaga que interesse a alguma pessoa. O detector emite dois alertas: o primeiro envia um email à pessoa; o segundo aciona o "realizador-de-matriculas" para fazer a matrícula automática dela.
 
 ```
-docker-compose -f docker-compose-local.yml up detector-de-vagas
+docker compose -f deploy/compose/docker-compose-local.yml --project-directory . up detector-de-vagas
 ```
 
 ##### Rodar o "realizador-de-matriculas"
 O "realizador-de-matriculas" recebe alertas do "detector-de-vagas" para fazer matrículas automáticas.
 
 ```
-docker-compose -f docker-compose-local.yml up realizador-de-matriculas
+docker compose -f deploy/compose/docker-compose-local.yml --project-directory . up realizador-de-matriculas
 ```
 
 
@@ -205,7 +205,7 @@ SERVER_NAME=DOMINIO
 ##### Construir as imagens Docker
 
 ```
-docker-compose build
+docker compose -f deploy/compose/docker-compose.yml --project-directory . build
 ```
 
 ##### Configurar e rodar o painel administrativo
@@ -213,7 +213,7 @@ Com o banco de dados (postgres) e o painel (django), é possível cadastrar estu
 
 ```
 # Rodar painel
-docker-compose up postgres django nginx certbot
+docker compose -f deploy/compose/docker-compose.yml --project-directory . up postgres django nginx certbot
 
 # Acessar o painel em ${DOMINIO}/admin , utilizando superusuário e senha definidos anteriormente.
 # Agora, basta cadastrar turmas e discentes. Os departamentos já foram populados automaticamente.
@@ -223,12 +223,12 @@ docker-compose up postgres django nginx certbot
 Com o "detector-de-vagas", é possível acionar alertas quando surge uma vaga que interesse a alguma pessoa. O detector emite dois alertas: o primeiro envia um email à pessoa; o segundo aciona o "realizador-de-matriculas" para fazer a matrícula automática dela.
 
 ```
-docker-compose up detector-de-vagas
+docker compose -f deploy/compose/docker-compose.yml --project-directory . up detector-de-vagas
 ```
 
 ##### Rodar o "realizador-de-matriculas"
 O "realizador-de-matriculas" recebe alertas do "detector-de-vagas" para fazer matrículas automáticas.
 
 ```
-docker-compose up realizador-de-matriculas
+docker compose -f deploy/compose/docker-compose.yml --project-directory . up realizador-de-matriculas
 ```

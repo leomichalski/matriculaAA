@@ -141,7 +141,7 @@ services:
 
   nginx:
     build:
-      context: ./nginx
+      context: ./deploy/compose/nginx
       dockerfile: ./Dockerfile
     image: api_production_nginx
     container_name: api_production_nginx
@@ -169,7 +169,7 @@ services:
 
   certbot:
     build:
-      context: ./certbot
+      context: ./deploy/compose/certbot
       dockerfile: ./Dockerfile
     image: api_production_certbot
     container_name: api_production_certbot
