@@ -11,7 +11,18 @@ ALLOWED_HOSTS = [
     "www." + env("SERVER_NAME"),
 ]
 
-STATIC_ROOT = "static/"
+# STATIC
+# ------------------------------------------------------------------------------
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+MIDDLEWARE.append(
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+)
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # # DATABASES
 # # ------------------------------------------------------------------------------

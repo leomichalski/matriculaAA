@@ -3,7 +3,6 @@ version: '3'
 volumes:
   api_production_postgres_data: {}
   api_production_postgres_data_backups: {}
-  api_static_files: {}
   api_certbot_www: {}
   api_certbot_conf: {}
 
@@ -119,8 +118,6 @@ services:
     networks:
       - django-access
       - database-access
-    volumes:
-      - api_static_files:/api/static/:rw
 
   ############################## OTHER SERVICE(S) ##############################
 
@@ -157,7 +154,6 @@ services:
       - django-access
     volumes:
       # ":ro" means "read-only"
-      - api_static_files:/usr/share/nginx/static/:ro
       - api_certbot_www:/var/www/certbot/:ro
       - api_certbot_conf:/etc/nginx/ssl/:ro
     healthcheck:
