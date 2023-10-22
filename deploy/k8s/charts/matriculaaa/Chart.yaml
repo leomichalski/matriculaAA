@@ -1,0 +1,11 @@
+apiVersion: v2
+name: matriculaaa
+description: matriculaAA deployment on Kubernetes
+type: application
+version: 0.1.0
+keywords:
+  - matriculaaa
+home: http://github.com/leomichalski/matriculaAA
+maintainers:
+  - name: leomichalski
+    email: leonardomichalskim@gmail.com

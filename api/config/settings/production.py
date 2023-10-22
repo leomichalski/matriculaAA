@@ -1,16 +1,6 @@
 from .base import *  # noqa
 from .base import env
 
-# GENERAL
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = env("DJANGO_SECRET_KEY")
-# https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = [
-    env("SERVER_NAME"),
-    "www." + env("SERVER_NAME"),
-]
-
 # STATIC
 # ------------------------------------------------------------------------------
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -45,6 +35,9 @@ STORAGES = {
 
 # # SECURITY
 # # ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
+SECRET_KEY = env("DJANGO_SECRET_KEY")
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-proxy-ssl-header
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # https://docs.djangoproject.com/en/dev/ref/settings/#session-cookie-secure
@@ -56,6 +49,16 @@ CSRF_TRUSTED_ORIGINS = [
     "https://" + env("SERVER_NAME"),
     "https://www." + env("SERVER_NAME"),
 ]
+
+ALLOWED_HOSTS = [
+    env("SERVER_NAME"),
+    "www." + env("SERVER_NAME"),
+]
+
+THIS_POD_IP = env("THIS_POD_IP", default=None)
+if THIS_POD_IP is not None:
+    ALLOWED_HOSTS.append(THIS_POD_IP)
+    CSRF_TRUSTED_ORIGINS.append("http://" + THIS_POD_IP)
 
 # ADMIN
 # ------------------------------------------------------------------------------
