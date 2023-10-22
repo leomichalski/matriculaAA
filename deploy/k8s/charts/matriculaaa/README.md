@@ -1,18 +1,17 @@
-
 matriculaAA
 ===========
 
-matriculaAA deployment on Kubernetes
+A Helm chart to deploy the matriculaAA project on Kubernetes.
 
 
 ## Configuration
 
-The following table lists the configurable parameters of the Matriculaaa chart and their default values.
+The following table lists the configurable parameters of the matriculaAA chart and their default values.
 
 | Parameter                | Description             | Default        |
 | ------------------------ | ----------------------- | -------------- |
 | `debug` | Useful to make local debugging faster.  | `false` |
-| `namespace` | The namespace in which to deploy the chart resources. | `"matriculaaa"` |
+| `namespace` | The namespace in which to deploy the chart resources. Not created by this chart. | `"matriculaaa"` |
 | `django.enabled` | Enable the Django admin panel. | `true` |
 | `django.container.imagePullPolicy` |  | `"Always"` |
 | `django.container.image` |  | `"api_production_django"` |
