@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: django
-  namespace: {{ .Values.namespace | quote }}
   labels:
     app: django
 spec:

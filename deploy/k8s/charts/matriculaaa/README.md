@@ -11,7 +11,6 @@ The following table lists the configurable parameters of the matriculaAA chart a
 | Parameter                | Description             | Default        |
 | ------------------------ | ----------------------- | -------------- |
 | `debug` | Useful to make local debugging faster.  | `false` |
-| `namespace` | The namespace in which to deploy the chart resources. Not created by this chart. | `"matriculaaa"` |
 | `django.enabled` | Enable the Django admin panel. | `true` |
 | `django.container.imagePullPolicy` |  | `"Always"` |
 | `django.container.image` |  | `"api_production_django"` |
