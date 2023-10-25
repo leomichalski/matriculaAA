@@ -9,3 +9,8 @@ home: http://github.com/leomichalski/matriculaAA
 maintainers:
   - name: leomichalski
     email: leonardomichalskim@gmail.com
+dependencies:
+- name: strimzi-kafka-operator
+  version: "0.38.0"
+  repository: "https://strimzi.io/charts"
+  condition: detectorDeVagas.enabled

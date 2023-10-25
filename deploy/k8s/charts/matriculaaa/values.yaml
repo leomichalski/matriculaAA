@@ -1,4 +1,6 @@
 debug: false
+# detectorDeVagas and realizadorDeMatriculas communicate via this topic
+kafkaTopicName: vaga_disponivel
 
 django:
   enabled: true
@@ -23,8 +25,62 @@ django:
   server_name: 
   secret_key: 
   superuser:
-    password: 
-    email: 
+    password:
+    email:
+
+strimzi:
+  clusterName: kafka-cluster
+  kafka:
+    version: 3.6.0
+    replicas: 1
+    listener:
+      name: plain
+      port: 9092
+      type: internal
+      tls: false
+    config:
+      offsetsTopicReplicationFactor: 1
+      transactionStateLogReplicationFactor: 1
+      transactionStateLogMinIsr: 1
+      defaultReplicationFactor: 1
+      minInsyncReplicas: 1
+      interBrokerProtocolVersion: "3.6"
+  zookeeper:
+    replicas: 1
+
+detectorDeVagas:
+  enabled: true
+  replicas: 1
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+  container:
+    imagePullPolicy: Always
+    image: matriculaaa-detector-de-vagas
+    tag: latest
+    requests:
+      cpu: 1000m
+      memory: 600Mi
+    limits:
+      cpu: 1000m
+      memory: 600Mi
+
+realizadorDeMatriculas:
+  enabled: true
+  replicas: 1
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+  container:
+    imagePullPolicy: Always
+    image: matriculaaa-realizador-de-matriculas
+    tag: latest
+    requests:
+      cpu: 1000m
+      memory: 600Mi
+    limits:
+      cpu: 1000m
+      memory: 600Mi
 
 postgres:
   db: 
