@@ -22,8 +22,8 @@ django:
     maxUnavailable: 0
 
   # TODO: use External Secrets Operator with AWS Secrets Manager
-  server_name: 
-  secret_key: 
+  serverName:
+  secretKey:
   superuser:
     password:
     email:
