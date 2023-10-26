@@ -2,25 +2,9 @@
 Bot que realiza matrícula extraordinária pelo SIGAA automaticamente. Favor não DDoS.
 
 - [Como rodar uma instância local com Docker Compose](#como-rodar-uma-instância-local-com-docker-compose)
-    - [Construir imagem Docker necessária para construir as outras imagens](#construir-imagem-docker-necessária-para-construir-as-outras-imagens)
-    - [Clonar este repositório](#clonar-este-repositório)
-    - [Configurar um email para envio de notificações de novas vagas](#configurar-um-email-para-envio-de-notificações-de-novas-vagas)
-    - [Construir as imagens Docker](#construir-as-imagens-docker)
-    - [Configurar e rodar o painel administrativo](#configurar-e-rodar-o-painel-administrativo)
-    - [Rodar o "detector-de-vagas"](#rodar-o-detector-de-vagas)
-    - [Rodar o "realizador-de-matriculas"](#rodar-o-realizador-de-matriculas)
 - [Como rodar uma instância pública com Docker Compose](#como-rodar-uma-instância-pública-com-docker-compose)
-    - [Acessar um terminal no servidor](#acessar-um-terminal-no-servidor)
-    - [Construir imagem Docker necessária para construir as outras imagens](#construir-imagem-docker-necessária-para-construir-as-outras-imagens-1)
-    - [Clonar este repositório](#clonar-este-repositório-1)
-    - [Configurar um email para envio de notificações de novas vagas](#configurar-um-email-para-envio-de-notificações-de-novas-vagas-1)
-    - [Configurar variáveis do PostgreSQL](#configurar-variáveis-do-postgresql)
-    - [Configurar variáveis de ambiente do Django, incluindo superusuário e senha do painel administrativo](#configurar-variáveis-de-ambiente-do-django-incluindo-superusuário-e-senha-do-painel-administrativo)
-    - [Configurar domínio do servidor como uma variável de ambiente](#configurar-domínio-do-servidor-como-uma-variável-de-ambiente)
-    - [Construir as imagens Docker](#construir-as-imagens-docker-1)
-    - [Configurar e rodar o painel administrativo](#configurar-e-rodar-o-painel-administrativo-1)
-    - [Rodar o "detector-de-vagas"](#rodar-o-detector-de-vagas-1)
-    - [Rodar o "realizador-de-matriculas"](#rodar-o-realizador-de-matriculas-1)
+- [Como rodar uma instância local com Kubernetes](#como-rodar-uma-instância-local-com-kubernetes)
+- [Como rodar uma instância pública com Kubernetes](#como-rodar-uma-instância-pública-com-kubernetes)
 
 
 ## Como rodar uma instância local com Docker Compose
@@ -187,7 +171,7 @@ SUPERUSER_PASSWORD=TROCAR ESTA SENHA DE SUPERUSUARIO
 ```
 
 ##### Configurar domínio do servidor como uma variável de ambiente
-No exemplo abaixo, substituir "DOMINIO" pelo domínio do servidor (por exemplo, 50.250.100.120.sslip.io ou google.com).
+No exemplo abaixo, substituir "DOMINIO" pelo domínio do servidor (por exemplo, 50.250.100.120.sslip.io ou google.com). Dica: usar `.nip.io` ou `.sslip.io` caso não haja um domínio disponível.
 
 ```
 # Navegar até este repositório
@@ -232,3 +216,117 @@ O "realizador-de-matriculas" recebe alertas do "detector-de-vagas" para fazer ma
 ```
 docker compose -f deploy/compose/docker-compose.yml --project-directory . up realizador-de-matriculas
 ```
+
+## Como rodar uma instância local com Kubernetes
+É necessário que o cluster Kubernetes tenha acesso ao Docker Registry onde as imagens são armazenadas.
+
+##### Construir imagem Docker necessária para construir as outras imagens
+
+```
+# Clonar o repositório que contém a Dockerfile
+git clone https://github.com/leomichalski/pyautogui
+
+# Construir a imagem Docker
+docker build pyautogui/docker -t leommiranda/pyautogui
+```
+
+##### Clonar este repositório
+
+```
+# Clonar o repositório
+git clone https://github.com/leomichalski/matriculaAA
+
+# Navegar até este repositório
+cd matriculaAA
+```
+
+##### Construir as imagens Docker
+
+```
+docker compose -f deploy/compose/docker-compose.yml --project-directory . build django detector-de-vagas realizador-de-matriculas
+```
+
+##### Subir imagens construídas para o Docker Registry
+Depende do Docker Registry utilizado (DockerHub, AWS ECR, etc) e da distribuição do Kubernetes (kind, k3s, etc).
+
+##### Instalar cert-manager no cluster
+
+```
+# Instalar
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yaml
+
+# Esperar até que o webhook do cert-manager esteja "ready", com timeout de 2min
+cmctl check api --wait=2m
+```
+
+##### Rodar o painel administrativo, o "detector-de-vagas" e o "realizador-de-matriculas"
+Configurar os "Helm chart values" da instalação de acordo com o [README.md do chart](deploy/k8s/charts/matriculaaa/README.md). Então, instalar com o seguinte comando.
+
+```
+helm upgrade --install matriculaaa deploy/k8s/charts/matriculaaa --set endpoint=localhost --set externalAccess.enabled=false --set debug=true
+```
+
+Também é necessário setar o restante dos "values" requeridos, conforme consta na tabela do [README.md do Helm chart](deploy/k8s/charts/matriculaaa/README.md).
+
+##### Acessar o painel administrativo por meio de port forwarding
+
+```
+kubectl port-forward service/django 8777:80
+
+# Acessar o painel em localhost:8777/admin
+```
+
+Também é possível utilizar outras portas, como a 8000 em vez da 8777.
+
+## Como rodar uma instância pública com Kubernetes
+É necessário que o cluster Kubernetes tenha acesso Docker Registry onde as imagens são armazenadas.
+
+##### Construir imagem Docker necessária para construir as outras imagens
+
+```
+# Clonar o repositório que contém a Dockerfile
+git clone https://github.com/leomichalski/pyautogui
+
+# Construir a imagem Docker
+docker build pyautogui/docker -t leommiranda/pyautogui
+```
+
+##### Clonar este repositório
+
+```
+# Clonar o repositório
+git clone https://github.com/leomichalski/matriculaAA
+
+# Navegar até este repositório
+cd matriculaAA
+```
+
+##### Construir as imagens Docker
+
+```
+docker compose -f deploy/compose/docker-compose.yml --project-directory . build django detector-de-vagas realizador-de-matriculas
+```
+
+##### Subir imagens construídas para o Docker Registry
+Depende do Docker Registry utilizado (DockerHub, AWS ECR, etc).
+
+##### Instalar cert-manager no cluster
+
+```
+# Instalar
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yaml
+
+# Esperar até que o webhook do cert-manager esteja "ready", com timeout de 2min
+cmctl check api --wait=2m
+```
+
+##### Rodar o painel administrativo, o "detector-de-vagas" e o "realizador-de-matriculas"
+Configurar os "Helm chart values" da instalação de acordo com o [README.md do chart](deploy/k8s/charts/matriculaaa/README.md). Então, instalar com o seguinte comando.
+
+```
+helm upgrade --install matriculaaa deploy/k8s/charts/matriculaaa --set endpoint=SUBSTITUIR_PELO_DOMINIO_PUBLICO
+```
+
+Também é necessário setar o restante dos "values" requeridos, conforme consta na tabela do [README.md do Helm chart](deploy/k8s/charts/matriculaaa/README.md). A depender do Docker Registry, talvez seja necessário alterar os nomes das imagens Docker (`django.container.image`, `detectorDeVagas.container.image` e `realizadorDeMatriculas.container.image`) e as tags das imagens Docker (`django.container.tag`, `detectorDeVagas.container.tag` e `realizadorDeMatriculas.container.tag`).
+
+Dica: usar o IP externo com o final `.nip.io` ou `.sslip.io` caso não haja um domínio público disponível.
