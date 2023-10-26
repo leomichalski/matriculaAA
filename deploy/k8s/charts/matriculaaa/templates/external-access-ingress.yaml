@@ -4,12 +4,11 @@ kind: Ingress
 metadata:
   name: external-access-ingress
   annotations:
-    # Adds acme challenge endpoint.
-    cert-manager.io/cluster-issuer: {{ .Values.externalAccess.clusterIssuer.name | quote }}
-    # Redirects all HTTP links to the matching HTTPS page.
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: {{ .Values.externalAccess.clusterIssuer.name | quote }}  # adds acme challenge endpoint
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"  # redirects all HTTP links to the matching HTTPS page
     nginx.ingress.kubernetes.io/ssl-prefer-server-ciphers: "true"
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    nginx.ingress.kubernetes.io/app-root: /admin  # the django app only serve "admin" and "static" endpoints
     # TODO: (MOSTLY DONE) ConfigMap according to deploy/compose/nginx/nginx.conf
     # TODO: (MOSTLY DONE)
     #   add_header Strict-Transport-Security "max-age=20; includeSubDomains; preload" always;
@@ -28,7 +27,6 @@ spec:
     - host: {{ required "A valid .Values.endpoint entry required!" .Values.endpoint | quote }}
       http:
         paths:
-        # TODO: only serve the "admin" and the "static" endpoints
         - path: /
           pathType: Prefix
           backend:
