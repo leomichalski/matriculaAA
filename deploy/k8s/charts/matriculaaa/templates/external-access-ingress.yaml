@@ -9,6 +9,7 @@ metadata:
     # Redirects all HTTP links to the matching HTTPS page.
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/ssl-prefer-server-ciphers: "true"
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
     # TODO: (MOSTLY DONE) ConfigMap according to deploy/compose/nginx/nginx.conf
     # TODO: (MOSTLY DONE)
     #   add_header Strict-Transport-Security "max-age=20; includeSubDomains; preload" always;
@@ -21,8 +22,7 @@ spec:
   tls:
   - hosts:
     - {{ required "A valid .Values.endpoint entry required!" .Values.endpoint | quote }}
-    # TODO: handle www
-    # - 'www.{{ required "A valid .Values.endpoint entry required!" .Values.endpoint }}'
+    - 'www.{{ required "A valid .Values.endpoint entry required!" .Values.endpoint }}'
     secretName: {{ .Values.externalAccess.clusterIssuer.secretName | quote }}  # secret name, same as the privateKeySecretRef in the (Cluster)Issuer
   rules:
     - host: {{ required "A valid .Values.endpoint entry required!" .Values.endpoint | quote }}
