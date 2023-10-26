@@ -134,3 +134,8 @@ dmypy.json
 !.envs/.local/.postgres
 !.envs/.local/.superuser
 .envs/.local/.email
+
+### Helm ###
+# Chart dependencies
+**/charts/*.tgz
+**/Chart.lock
