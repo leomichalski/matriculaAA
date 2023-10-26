@@ -1,0 +1,82 @@
+{{- if .Values.detectorDeVagas.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: detector-de-vagas
+  labels:
+    app: detector-de-vagas
+spec:
+  selector:
+    matchLabels:
+      app: detector-de-vagas
+  replicas: {{ .Values.detectorDeVagas.replicas }}
+  strategy:
+    rollingUpdate:
+      maxSurge: {{ .Values.detectorDeVagas.rollingUpdate.maxSurge }}
+      maxUnavailable: {{ .Values.detectorDeVagas.rollingUpdate.maxUnavailable }}
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: detector-de-vagas
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: detector-de-vagas
+        image: {{ .Values.detectorDeVagas.container.image }}:{{ .Values.detectorDeVagas.container.tag }}
+
+        {{- if .Values.debug }}
+        imagePullPolicy: IfNotPresent
+        {{- else }}
+        imagePullPolicy: {{ .Values.detectorDeVagas.container.imagePullPolicy }}
+        {{- end }}
+
+        resources:
+          requests:
+            cpu: {{ .Values.detectorDeVagas.container.requests.cpu }}
+            memory: {{ .Values.detectorDeVagas.container.requests.memory }}
+          limits:
+            cpu: {{ .Values.detectorDeVagas.container.limits.cpu }}
+            memory: {{ .Values.detectorDeVagas.container.limits.memory }}
+        # TODO: pod affinity/antiaffinity (light aversion to external ip node?, mild aversion to realizador-de-matriculas?, deadly aversion to itself)
+        env:
+        - name: PYTHONUNBUFFERED
+          value: "TRUE"
+
+        - name: KAFKA_PORT
+          value: {{ .Values.strimzi.kafka.listener.port | quote }}
+        - name: KAFKA_SERVER
+          value: "{{ .Values.strimzi.clusterName }}-kafka-bootstrap"
+        # TODO: use strimzi KafkaTopic instead
+        - name: KAFKA_TOPIC_VAGA_DISPONIVEL
+          valueFrom:
+            configMapKeyRef:
+              key: KAFKA_TOPIC_VAGA_DISPONIVEL
+              name: kafka-topic-vaga-disponivel
+
+        - name: POSTGRES_HOST
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_HOST
+              name: postgres
+        - name: POSTGRES_PORT
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PORT
+              name: postgres
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_DB
+              name: postgres
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_USER
+              name: postgres
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: postgres
+{{- end }}

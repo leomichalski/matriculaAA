@@ -1,0 +1,115 @@
+{{- if .Values.django.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+  labels:
+    app: django
+spec:
+  selector:
+    matchLabels:
+      app: django
+  replicas: {{ .Values.django.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: {{ .Values.django.rollingUpdate.maxSurge }}
+      maxUnavailable:  {{ .Values.django.rollingUpdate.maxUnavailable }}
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: django
+        image: {{ .Values.django.container.image }}:{{ .Values.django.container.tag }}
+
+        {{- if .Values.debug }}
+        imagePullPolicy: IfNotPresent
+        {{- else }}
+        imagePullPolicy: {{ .Values.django.container.imagePullPolicy }}
+        {{- end }}
+
+        resources:
+          requests:
+            cpu: {{ .Values.django.container.requests.cpu }}
+            memory: {{ .Values.django.container.requests.memory }}
+          limits:
+            cpu: {{ .Values.django.container.limits.cpu }}
+            memory: {{ .Values.django.container.limits.memory }}
+
+        livenessProbe:
+          httpGet:
+            path: /admin
+            port: {{ .Values.django.container.port }}
+            scheme: HTTP
+          timeoutSeconds: 5
+          failureThreshold: 3
+          periodSeconds: 10
+        startupProbe:
+          httpGet:
+            path: /admin
+            port: {{ .Values.django.container.port }}
+            scheme: HTTP
+          failureThreshold: 30
+          periodSeconds: 10
+
+        ports:
+        - containerPort: {{ .Values.django.container.port }}
+          name: django
+
+        env:
+        - name: DJANGO_SETTINGS_MODULE
+          value: config.settings.production
+
+        - name: DJANGO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: DJANGO_SECRET_KEY
+              name: django
+
+        - name: SUPERUSER_EMAIL
+          valueFrom:
+            secretKeyRef:
+              key: SUPERUSER_EMAIL
+              name: django
+        - name: SUPERUSER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: SUPERUSER_PASSWORD
+              name: django
+
+        - name: THIS_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: SERVER_NAME
+          value: {{ required "A valid .Values.endpoint entry required!" .Values.endpoint | quote }}
+
+        - name: POSTGRES_HOST
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_HOST
+              name: postgres
+        - name: POSTGRES_PORT
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PORT
+              name: postgres
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_DB
+              name: postgres
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_USER
+              name: postgres
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: postgres
+{{- end }}

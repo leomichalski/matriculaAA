@@ -1,0 +1,35 @@
+{{- if .Values.detectorDeVagas.enabled }}
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: {{ .Values.strimzi.clusterName | quote }}
+spec:
+  kafka:
+    version: {{ .Values.strimzi.kafka.version | quote }}
+    replicas: {{ .Values.strimzi.kafka.replicas }}
+    listeners:
+      - name: {{ .Values.strimzi.kafka.listener.name | quote }}
+        port: {{ .Values.strimzi.kafka.listener.port }}
+        type: {{ .Values.strimzi.kafka.listener.type | quote }}
+        tls: {{ .Values.strimzi.kafka.listener.tls }}
+    config:
+      offsets.topic.replication.factor:  {{ .Values.strimzi.kafka.config.offsetsTopicReplicationFactor }}
+      transaction.state.log.replication.factor:  {{ .Values.strimzi.kafka.config.transactionStateLogReplicationFactor }}
+      transaction.state.log.min.isr:  {{ .Values.strimzi.kafka.config.transactionStateLogMinIsr }}
+      default.replication.factor:  {{ .Values.strimzi.kafka.config.defaultReplicationFactor }}
+      min.insync.replicas:  {{ .Values.strimzi.kafka.config.minInsyncReplicas }}
+      inter.broker.protocol.version:  {{ .Values.strimzi.kafka.config.interBrokerProtocolVersion | quote }}
+    # Nao ha necessidade de "persistent storage". Apos as vagas serem
+    # detectadas, as matriculas precisam ser realizadas imediatamente.
+    storage:
+      type: ephemeral
+  zookeeper:
+    replicas:  {{ .Values.strimzi.zookeeper.replicas }}
+    # Nao ha necessidade de "persistent storage". Apos as vagas serem
+    # detectadas, as matriculas precisam ser realizadas imediatamente.
+    storage:
+      type: ephemeral
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
+{{- end }}

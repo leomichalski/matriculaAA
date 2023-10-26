@@ -1,0 +1,111 @@
+debug: false
+# detectorDeVagas and realizadorDeMatriculas communicate via this topic
+kafkaTopicName: vaga_disponivel
+
+endpoint:
+
+externalAccess:
+  enabled: true
+
+  clusterIssuer:
+    enabled: true
+    name: letsencrypt-prod
+    # Let's Encrypt will use this email to contact you about expiring
+    # certificates, and issues related to your account.
+    email:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    # Secret resource that will be used to store the account's private key.
+    secretName: letsencrypt-secret-prod
+
+  ingress:
+    enabled: true
+
+django:
+  enabled: true
+
+  container:
+    imagePullPolicy: Always
+    image: api_production_django
+    tag: latest
+    requests:
+      cpu: 100m
+      memory: 60Mi
+    limits:
+      cpu: 500m
+      memory: 500Mi
+    port: 5000
+
+  service:
+    port: 80
+
+  replicas: 3
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+
+  # TODO: use External Secrets Operator with AWS Secrets Manager
+  secretKey:
+  superuser:
+    password:
+    email:
+
+strimzi:
+  clusterName: kafka-cluster
+  kafka:
+    version: 3.6.0
+    replicas: 1
+    listener:
+      name: plain
+      port: 9092
+      type: internal
+      tls: false
+    config:
+      offsetsTopicReplicationFactor: 1
+      transactionStateLogReplicationFactor: 1
+      transactionStateLogMinIsr: 1
+      defaultReplicationFactor: 1
+      minInsyncReplicas: 1
+      interBrokerProtocolVersion: "3.6"
+  zookeeper:
+    replicas: 1
+
+detectorDeVagas:
+  enabled: true
+  replicas: 1
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+  container:
+    imagePullPolicy: Always
+    image: matriculaaa-detector-de-vagas
+    tag: latest
+    requests:
+      cpu: 1000m
+      memory: 600Mi
+    limits:
+      cpu: 1000m
+      memory: 600Mi
+
+realizadorDeMatriculas:
+  enabled: true
+  replicas: 1
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+  container:
+    imagePullPolicy: Always
+    image: matriculaaa-realizador-de-matriculas
+    tag: latest
+    requests:
+      cpu: 1000m
+      memory: 600Mi
+    limits:
+      cpu: 1000m
+      memory: 600Mi
+
+postgres:
+  db: 
+  host: 
+  password: 
+  port: 
+  user: 

@@ -1,0 +1,15 @@
+{{- if .Values.django.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: django
+spec:
+  selector:
+    app: django
+  ports:
+  - name: django
+    protocol: TCP
+    port: {{ .Values.django.service.port }}
+    targetPort: {{ .Values.django.container.port }}
+  type: ClusterIP
+{{- end }}
