@@ -2,8 +2,27 @@ debug: false
 # detectorDeVagas and realizadorDeMatriculas communicate via this topic
 kafkaTopicName: vaga_disponivel
 
+endpoint:
+
+externalAccess:
+  enabled: true
+
+  clusterIssuer:
+    enabled: true
+    name: letsencrypt-prod
+    # Let's Encrypt will use this email to contact you about expiring
+    # certificates, and issues related to your account.
+    email:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    # Secret resource that will be used to store the account's private key.
+    secretName: letsencrypt-secret-prod
+
+  ingress:
+    enabled: true
+
 django:
   enabled: true
+
   container:
     imagePullPolicy: Always
     image: api_production_django
@@ -16,13 +35,15 @@ django:
       memory: 500Mi
     port: 5000
 
+  service:
+    port: 80
+
   replicas: 3
   rollingUpdate:
     maxSurge: 1
     maxUnavailable: 0
 
   # TODO: use External Secrets Operator with AWS Secrets Manager
-  serverName:
   secretKey:
   superuser:
     password:

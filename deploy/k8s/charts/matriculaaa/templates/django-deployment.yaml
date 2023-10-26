@@ -85,7 +85,7 @@ spec:
             fieldRef:
               fieldPath: status.podIP
         - name: SERVER_NAME
-          value: {{ required "A valid .Values.django.serverName entry required!" .Values.django.serverName | quote }}
+          value: {{ required "A valid .Values.endpoint entry required!" .Values.endpoint | quote }}
 
         - name: POSTGRES_HOST
           valueFrom:

@@ -9,7 +9,7 @@ spec:
   ports:
   - name: django
     protocol: TCP
-    port: 80
+    port: {{ .Values.django.service.port }}
     targetPort: {{ .Values.django.container.port }}
   type: ClusterIP
 {{- end }}

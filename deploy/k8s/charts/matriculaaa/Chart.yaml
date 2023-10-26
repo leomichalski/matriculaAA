@@ -9,8 +9,13 @@ home: http://github.com/leomichalski/matriculaAA
 maintainers:
   - name: leomichalski
     email: leonardomichalskim@gmail.com
+kubeVersion: ">=1.22.0-0"
 dependencies:
 - name: strimzi-kafka-operator
   version: "0.38.0"
   repository: "https://strimzi.io/charts"
   condition: detectorDeVagas.enabled
+- name: ingress-nginx
+  version: 4.8.2
+  repository: https://kubernetes.github.io/ingress-nginx
+  condition: externalAccess.enabled
