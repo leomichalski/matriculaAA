@@ -4,6 +4,9 @@ kafkaTopicName: vaga_disponivel
 
 endpoint:
 
+prometheus:
+  enabled: true
+
 externalAccess:
   enabled: true
 
