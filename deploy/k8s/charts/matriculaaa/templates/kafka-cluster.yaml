@@ -23,12 +23,68 @@ spec:
     # detectadas, as matriculas precisam ser realizadas imediatamente.
     storage:
       type: ephemeral
+
+    template:
+      pod:
+        metadata:
+          labels:
+            app: kafka
+        affinity:
+          podAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 60
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - zookeeper
+                topologyKey: "kubernetes.io/hostname"
+            - weight: 40
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - detector-de-vagas
+                topologyKey: "kubernetes.io/hostname"
+            - weight: 20
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - realizador-de-matriculas
+                topologyKey: "kubernetes.io/hostname"
+
   zookeeper:
     replicas:  {{ .Values.strimzi.zookeeper.replicas }}
     # Nao ha necessidade de "persistent storage". Apos as vagas serem
     # detectadas, as matriculas precisam ser realizadas imediatamente.
     storage:
       type: ephemeral
+
+    template:
+      pod:
+        metadata:
+          labels:
+            app: zookeeper
+        affinity:
+          podAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 60
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - kafka
+                topologyKey: "kubernetes.io/hostname"
+
   entityOperator:
     topicOperator: {}
     userOperator: {}
