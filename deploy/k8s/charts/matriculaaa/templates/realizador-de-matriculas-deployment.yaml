@@ -21,6 +21,28 @@ spec:
         app: realizador-de-matriculas
     spec:
       restartPolicy: Always
+
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - realizador-de-matriculas
+            topologyKey: "kubernetes.io/hostname"
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - detector-de-vagas
+              topologyKey: "kubernetes.io/hostname"
+
       containers:
       - name: realizador-de-matriculas
         image: {{ .Values.realizadorDeMatriculas.container.image }}:{{ .Values.realizadorDeMatriculas.container.tag }}

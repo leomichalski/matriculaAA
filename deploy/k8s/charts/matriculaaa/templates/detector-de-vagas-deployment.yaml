@@ -21,6 +21,28 @@ spec:
         app: detector-de-vagas
     spec:
       restartPolicy: Always
+
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - detector-de-vagas
+            topologyKey: "kubernetes.io/hostname"
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - realizador-de-matriculas
+              topologyKey: "kubernetes.io/hostname"
+
       containers:
       - name: detector-de-vagas
         image: {{ .Values.detectorDeVagas.container.image }}:{{ .Values.detectorDeVagas.container.tag }}
@@ -38,7 +60,7 @@ spec:
           limits:
             cpu: {{ .Values.detectorDeVagas.container.limits.cpu }}
             memory: {{ .Values.detectorDeVagas.container.limits.memory }}
-        # TODO: pod affinity/antiaffinity (light aversion to external ip node?, mild aversion to realizador-de-matriculas?, deadly aversion to itself)
+
         env:
         - name: PYTHONUNBUFFERED
           value: "TRUE"
