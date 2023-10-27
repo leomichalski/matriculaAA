@@ -27,18 +27,26 @@ django:
     imagePullPolicy: Always
     image: api_production_django
     tag: latest
+    # if changing requests or limits, check `django.hpa` values
     requests:
       cpu: 100m
       memory: 60Mi
     limits:
       cpu: 500m
-      memory: 500Mi
+      memory: 400Mi
     port: 5000
 
   service:
     port: 80
 
-  replicas: 3
+  replicas: 1
+  hpa: # HorizontalPodAutoscaler
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 6
+    targetCPUUtilization: 45
+    targetMemoryValue: 300Mi
+
   rollingUpdate:
     maxSurge: 1
     maxUnavailable: 0
