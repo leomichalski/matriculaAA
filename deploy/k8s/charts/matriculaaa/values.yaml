@@ -7,7 +7,7 @@ endpoint:
 externalAccess:
   enabled: true
 
-  clusterIssuer:
+  issuer:
     enabled: true
     name: letsencrypt-prod
     # Let's Encrypt will use this email to contact you about expiring

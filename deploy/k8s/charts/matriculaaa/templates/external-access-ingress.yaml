@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: external-access-ingress
   annotations:
-    cert-manager.io/cluster-issuer: {{ .Values.externalAccess.clusterIssuer.name | quote }}  # adds acme challenge endpoint
+    cert-manager.io/issuer: {{ .Values.externalAccess.issuer.name | quote }}  # adds acme challenge endpoint
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"  # redirects all HTTP links to the matching HTTPS page
     nginx.ingress.kubernetes.io/ssl-prefer-server-ciphers: "true"
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
@@ -22,7 +22,7 @@ spec:
   - hosts:
     - {{ required "A valid .Values.endpoint entry required!" .Values.endpoint | quote }}
     - 'www.{{ required "A valid .Values.endpoint entry required!" .Values.endpoint }}'
-    secretName: {{ .Values.externalAccess.clusterIssuer.secretName | quote }}  # secret name, same as the privateKeySecretRef in the (Cluster)Issuer
+    secretName: {{ .Values.externalAccess.issuer.secretName | quote }}  # secret name, same as the privateKeySecretRef in the (Cluster)Issuer
   rules:
     - host: {{ required "A valid .Values.endpoint entry required!" .Values.endpoint | quote }}
       http:

@@ -14,11 +14,11 @@ The following table lists the configurable parameters of the matriculaAA chart a
 | `kafkaTopicName` |  | `"vaga_disponivel"` |
 | `endpoint` | Required. The DNS or IP that should host the admin panel. | `` |
 | `externalAccess.enabled` |  | `true` |
-| `externalAccess.clusterIssuer.enabled` |  | `true` |
-| `externalAccess.clusterIssuer.name` |  | `"letsencrypt-prod"` |
-| `externalAccess.clusterIssuer.email` | Required. | `` |
-| `externalAccess.clusterIssuer.server` |  | `"https://acme-v02.api.letsencrypt.org/directory"` |
-| `externalAccess.clusterIssuer.secretName` |  | `"letsencrypt-secret-prod"` |
+| `externalAccess.issuer.enabled` |  | `true` |
+| `externalAccess.issuer.name` |  | `"letsencrypt-prod"` |
+| `externalAccess.issuer.email` | Required. | `` |
+| `externalAccess.issuer.server` |  | `"https://acme-v02.api.letsencrypt.org/directory"` |
+| `externalAccess.issuer.secretName` |  | `"letsencrypt-secret-prod"` |
 | `externalAccess.ingress.enabled` |  | `true` |
 | `django.enabled` | Enable the Django admin panel. | `true` |
 | `django.container.imagePullPolicy` |  | `"Always"` |

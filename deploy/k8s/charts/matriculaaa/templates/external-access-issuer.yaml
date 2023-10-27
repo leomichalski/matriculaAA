@@ -1,0 +1,17 @@
+{{- if and .Values.django.enabled .Values.externalAccess.enabled .Values.externalAccess.issuer.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ .Values.externalAccess.issuer.name | quote }}
+spec:
+  acme:
+    email: {{ required "A valid .Values.externalAccess.issuer.email entry required!" .Values.externalAccess.issuer.email | quote }}
+    server: {{ .Values.externalAccess.issuer.server | quote }}
+    privateKeySecretRef:
+      name: {{ .Values.externalAccess.issuer.secretName | quote }}
+    # Add a single challenge solver, HTTP01 using nginx
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+{{- end }}
