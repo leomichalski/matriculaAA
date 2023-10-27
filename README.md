@@ -264,19 +264,12 @@ Configurar os "Helm chart values" da instalação de acordo com o [README.md do 
 
 ```
 helm upgrade --install matriculaaa deploy/k8s/charts/matriculaaa --set endpoint=localhost --set externalAccess.enabled=false --set debug=true
+
+# Aguardar, e acessar o painel administrativo em localhost:31000/admin
 ```
 
 Também é necessário setar o restante dos "values" requeridos, conforme consta na tabela do [README.md do Helm chart](deploy/k8s/charts/matriculaaa/README.md).
 
-##### Acessar o painel administrativo por meio de port forwarding
-
-```
-kubectl port-forward service/django 8777:80
-
-# Acessar o painel em localhost:8777/admin
-```
-
-Também é possível utilizar outras portas, como a 8000 em vez da 8777.
 
 ## Como rodar uma instância pública com Kubernetes
 É necessário que o cluster Kubernetes tenha acesso Docker Registry onde as imagens são armazenadas.
@@ -325,6 +318,8 @@ Configurar os "Helm chart values" da instalação de acordo com o [README.md do 
 
 ```
 helm upgrade --install matriculaaa deploy/k8s/charts/matriculaaa --set endpoint=SUBSTITUIR_PELO_DOMINIO_PUBLICO
+
+# Aguardar, e acessar o painel administrativo em SUBSTITUIR_PELO_DOMINIO_PUBLICO
 ```
 
 Também é necessário setar o restante dos "values" requeridos, conforme consta na tabela do [README.md do Helm chart](deploy/k8s/charts/matriculaaa/README.md). A depender do Docker Registry, talvez seja necessário alterar os nomes das imagens Docker (`django.container.image`, `detectorDeVagas.container.image` e `realizadorDeMatriculas.container.image`) e as tags das imagens Docker (`django.container.tag`, `detectorDeVagas.container.tag` e `realizadorDeMatriculas.container.tag`).

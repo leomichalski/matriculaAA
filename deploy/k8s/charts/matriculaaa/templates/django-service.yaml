@@ -11,5 +11,10 @@ spec:
     protocol: TCP
     port: {{ .Values.django.service.port }}
     targetPort: {{ .Values.django.container.port }}
+  {{- if (not .Values.externalAccess.enabled) }}
+    nodePort: 31000
+  type: NodePort
+  {{- else }}
   type: ClusterIP
+  {{- end }}
 {{- end }}
