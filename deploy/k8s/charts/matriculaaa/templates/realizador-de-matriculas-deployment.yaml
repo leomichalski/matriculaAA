@@ -60,7 +60,6 @@ spec:
           limits:
             cpu: {{ .Values.realizadorDeMatriculas.container.limits.cpu }}
             memory: {{ .Values.realizadorDeMatriculas.container.limits.memory }}
-        # TODO: pod affinity/antiaffinity (light aversion to external ip node?, mild aversion to detector-de-vagas?, deadly aversion to itself)
         env:
         - name: PYTHONUNBUFFERED
           value: "TRUE"
