@@ -1,5 +1,12 @@
 # matriculaAA
-Bot que realiza matrícula extraordinária pelo SIGAA automaticamente. Favor não DDoS.
+
+#### :x: Não participe de um ataque DDoS.
+#### :x: Evite rodar uma nova instância do projeto. Vamos evitar que o SIGAA fique indisponível.
+#### :white_check_mark: Considere me enviar um email em [leonardomichalskim@gmail.com](mailto:leonardomichalskim@gmail.com).
+
+A ideia deste projeto é melhorar a experiência com o SIGAA, chega de desperdiçar os primeiros dias da matrícula extraordinária ansiosamente apertando F5 a cada 5 minutos.
+
+## Sumário
 
 - [Como rodar uma instância local com Docker Compose](#como-rodar-uma-instância-local-com-docker-compose)
 - [Como rodar uma instância pública com Docker Compose](#como-rodar-uma-instância-pública-com-docker-compose)
