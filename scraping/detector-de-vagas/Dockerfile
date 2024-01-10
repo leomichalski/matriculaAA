@@ -15,9 +15,7 @@ RUN pip install --default-timeout=15000 --no-cache-dir -r /tmp/requirements.txt
 
 COPY scraping/detector-de-vagas/elementos_das_telas elementos_das_telas
 COPY scraping/detector-de-vagas/detector_de_vagas.py .
-COPY scraping/detector-de-vagas/salva_lista_de_turmas_de_um_departamento.py .
-
-COPY scraping/utils utils
+COPY scraping/detector-de-vagas/utils utils
 
 COPY database/database.py .
 

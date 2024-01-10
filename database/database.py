@@ -30,12 +30,12 @@ def listar_relacao_turma_interessa_discente(cursor):
                horario_codificado,
                discente_id,
                email,
-               departamento_id
-        FROM   turmas_turma AS turma,
-               discentes_discente_turmas_desejadas AS interessa,
-               discentes_discente AS discente
-        WHERE  ( interessa.turma_id = turma.id )
-               AND ( interessa.discente_id = discente.id )
+               departamento_id,
+               codigo
+        FROM       turmas_turma AS turma
+        INNER JOIN discentes_discente_turmas_desejadas AS interessa ON interessa.turma_id = turma.id
+        INNER JOIN discentes_discente AS discente ON interessa.discente_id = discente.id
+        INNER JOIN departamentos_departamento AS departamento ON departamento.id = turma.departamento_id
         ORDER  BY departamento_id;
     """)
     return cursor.fetchall()

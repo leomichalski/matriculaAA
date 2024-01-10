@@ -7,18 +7,16 @@ from kafka import KafkaProducer
 
 from utils.email import send_email
 from utils.sigaa import (
-    dep_id_from_filename,
-    timestamp_from_filename,
-    definir_arquivo_html_mais_recente,
+    criar_sessao,
+    abrir_tela_inicial,
+    requisitar_lista_de_turmas,
+    salvar_lista_de_turmas,
     parse_lista_de_turmas,
 )
 
 from database import (
     connect_to_db,
     listar_relacao_turma_interessa_discente
-)
-from salva_lista_de_turmas_de_um_departamento import (
-    main as salva_lista_de_turmas_de_um_departamento
 )
 
 
@@ -63,35 +61,42 @@ def main(pasta_arquivos_html='arquivos_html',
         turma_interessa_discente = listar_relacao_turma_interessa_discente(
             cursor
         )
-        idx_departamento_previo = -1  # departamento invalido
-        for codigo_disciplina, nome_disciplina, nome_docente_turma, horario_codificado_turma, id_discente, email_discente, idx_departamento in turma_interessa_discente:
-            if idx_departamento != idx_departamento_previo:
+        # criar nova sessao no sigaa
+        session = criar_sessao()
+        response, j_id = abrir_tela_inicial(session)
+
+        # TODO: get "NIVEL", "ANO" and "PERIODO" from the database
+        NIVEL = 'G'
+        ANO = '2023'
+        PERIODO = '4'
+
+        codigo_departamento_previo = -1  # departamento invalido
+        for codigo_disciplina, nome_disciplina, nome_docente_turma, horario_codificado_turma, id_discente, email_discente, idx_departamento, codigo_departamento in turma_interessa_discente:
+            if codigo_departamento != codigo_departamento_previo:
                 # faz o webscraping do SIGAA, e salva a pagina html da lista de turmas
-                print("Salvando lista do departamento " + str(idx_departamento) + "...")
-                salva_lista_de_turmas_de_um_departamento(
-                    url_inicial='https://sigaa.unb.br/sigaa/public/turmas/listar.jsf',
-                    index_do_departamento_na_lista=idx_departamento,
-                    measure_time=True,
-                    take_screenshots=False,
-                    pasta_destino_screenshots='',
-                    pasta_imagens_pyautogui='elementos_das_telas',
-                    pasta_arquivos_html=pasta_arquivos_html,
-                    run_number=None,
-                    pasta_padrao_de_downloads_do_so='/root/Downloads/',
+                print("Requisitando lista do departamento " + str(codigo_departamento) + "...")
+                response, j_id = requisitar_lista_de_turmas(
+                    session,
+                    nivel=NIVEL,
+                    departamento_id=str(codigo_departamento),
+                    ano=ANO,
+                    periodo=PERIODO,
+                    j_id=j_id,
                 )
-                # vai na pasta de arquivos html, e pega o mais recente do departamento escolhido
-                chosen_html_file = definir_arquivo_html_mais_recente(
+                print("Salvando lista do departamento...")
+                nome_do_arquivo_html = salvar_lista_de_turmas(
+                    response.text,
                     pasta_arquivos_html=pasta_arquivos_html,
-                    index_do_departamento_na_lista=idx_departamento,
+                    departamento_id=codigo_departamento,
                 )
-                print('Arquivo html a ser analisado:', chosen_html_file)
+                print("Parsing lista do departamento...")
                 lista_de_turmas_encontradas = parse_lista_de_turmas(
-                    nome_do_arquivo_html=chosen_html_file,
+                    nome_do_arquivo_html=nome_do_arquivo_html,
                     pasta_arquivos_html=pasta_arquivos_html,
                 )
                 # remove turmas que nao tem vagas
                 lista_de_turmas_encontradas = [t for t in lista_de_turmas_encontradas if t['quantidade_de_vagas'] >= 1]
-                idx_departamento_previo = idx_departamento
+                codigo_departamento_previo = codigo_departamento
 
             # conferir se a turma desejada esta na lista de turmas encontradas
             # Obs: o tamanho maximo da lista_de_turmas_encontradas eh aprox. 400, a moda eh aprox. 20
