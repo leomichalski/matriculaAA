@@ -37,6 +37,7 @@ The following table lists the configurable parameters of the matriculaAA chart a
 | `django.superuser.password` | Required. | `` |
 | `django.superuser.email` | Required. | `` |
 | `strimzi.clusterName` |  | `"kafka-cluster"` |
+| `strimzi.enabled` | Enables standalone strimzi-kafka-operator install. | `"false"` |
 | `strimzi.kafka.version` |  | `"3.6.0"` |
 | `strimzi.kafka.replicas` |  | `1` |
 | `strimzi.kafka.listener.name` |  | `"plain"` |

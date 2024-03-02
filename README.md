@@ -9,10 +9,10 @@ A ideia deste projeto é melhorar a experiência com o SIGAA, chega de desperdi�
 
 ## Sumário
 
+
 - [Como rodar uma instância local com Docker Compose](#como-rodar-uma-instância-local-com-docker-compose)
 - [Como rodar uma instância pública com Docker Compose](#como-rodar-uma-instância-pública-com-docker-compose)
-- [Como rodar uma instância local com Kubernetes](#como-rodar-uma-instância-local-com-kubernetes)
-- [Como rodar uma instância pública com Kubernetes](#como-rodar-uma-instância-pública-com-kubernetes)
+- [Como rodar uma instância (local ou pública) com Kubernetes](#como-rodar-uma-instância-local-ou-pública-com-kubernetes)
 
 
 ## Como rodar uma instância local com Docker Compose
@@ -225,8 +225,16 @@ O "realizador-de-matriculas" recebe alertas do "detector-de-vagas" para fazer ma
 docker compose -f deploy/compose/docker-compose.yml --project-directory . up realizador-de-matriculas
 ```
 
-## Como rodar uma instância local com Kubernetes
-É necessário que o cluster Kubernetes tenha acesso ao Docker Registry onde as imagens são armazenadas.
+
+## Como rodar uma instância (local ou pública) com Kubernetes
+É necessário que o cluster Kubernetes tenha acesso Docker Registry onde as imagens são armazenadas.
+
+##### Requisitos
+
+* Servidor PostgreSQL rodando a parte. Foram testadas as versões 14 e 15.
+* Ferramenta [ingress-nginx](https://github.com/kubernetes/ingress-nginx) instalada no cluster.
+* Ferramenta [cert-manager](https://github.com/cert-manager/cert-manager) instalada no cluster.
+* Ferramenta [strimzi-kafka-operator](https://github.com/strimzi/strimzi-kafka-operator) instalada no cluster. Também pode ser instalada como dependência do chart, basta utilizar `helm install (...) --set strimzi.enabled=true`. Caso for instalada separada do chart, talvez seja necessário modificar alguns values `helm install (...) --set strimzi.kafka.listener.port=9092 --set strimzi.clusterName='kafka-cluster'`
 
 ##### Construir imagem Docker necessária para construir as outras imagens
 
@@ -255,20 +263,10 @@ docker compose -f deploy/compose/docker-compose.yml --project-directory . build 
 ```
 
 ##### Subir imagens construídas para o Docker Registry
-Depende do Docker Registry utilizado (DockerHub, AWS ECR, etc) e da distribuição do Kubernetes (kind, k3s, etc).
 
-##### Instalar cert-manager no cluster
+Depende do Docker Registry utilizado (DockerHub, AWS ECR, etc) e da distribuição do Kubernetes (kind, k3s, RKE, etc).
 
-```
-# Instalar
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yaml
-
-# Esperar até que o webhook do cert-manager esteja "ready", com timeout de 2min
-cmctl check api --wait=2m
-```
-
-##### Rodar o painel administrativo, o "detector-de-vagas" e o "realizador-de-matriculas"
-Configurar os "Helm chart values" da instalação de acordo com o [README.md do chart](deploy/k8s/charts/matriculaaa/README.md). Então, instalar com o seguinte comando.
+##### Rodar os bots ("detector-de-vagas" e "realizador-de-matriculas") com um painel administrativo local
 
 ```
 helm upgrade --install matriculaaa deploy/k8s/charts/matriculaaa --set endpoint=localhost --set externalAccess.enabled=false --set debug=true
@@ -276,52 +274,10 @@ helm upgrade --install matriculaaa deploy/k8s/charts/matriculaaa --set endpoint=
 # Aguardar, e acessar o painel administrativo em localhost:31000/admin
 ```
 
-Também é necessário setar o restante dos "values" requeridos, conforme consta na tabela do [README.md do Helm chart](deploy/k8s/charts/matriculaaa/README.md).
+Também é necessário setar o restante dos "values" requeridos, conforme consta na tabela do [README.md do Helm chart](deploy/k8s/charts/matriculaaa/README.md). Principalmente, os "values" relacionados ao servidor PostgreSQL.
 
+##### Rodar os bots ("detector-de-vagas" e "realizador-de-matriculas") com um painel administrativo público
 
-## Como rodar uma instância pública com Kubernetes
-É necessário que o cluster Kubernetes tenha acesso Docker Registry onde as imagens são armazenadas.
-
-##### Construir imagem Docker necessária para construir as outras imagens
-
-```
-# Clonar o repositório que contém a Dockerfile
-git clone https://github.com/leomichalski/pyautogui
-
-# Construir a imagem Docker
-docker build pyautogui/docker -t leommiranda/pyautogui
-```
-
-##### Clonar este repositório
-
-```
-# Clonar o repositório
-git clone https://github.com/leomichalski/matriculaAA
-
-# Navegar até este repositório
-cd matriculaAA
-```
-
-##### Construir as imagens Docker
-
-```
-docker compose -f deploy/compose/docker-compose.yml --project-directory . build django detector-de-vagas realizador-de-matriculas
-```
-
-##### Subir imagens construídas para o Docker Registry
-Depende do Docker Registry utilizado (DockerHub, AWS ECR, etc).
-
-##### Instalar cert-manager no cluster
-
-```
-# Instalar
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yaml
-
-# Esperar até que o webhook do cert-manager esteja "ready", com timeout de 2min
-cmctl check api --wait=2m
-```
-
-##### Rodar o painel administrativo, o "detector-de-vagas" e o "realizador-de-matriculas"
 Configurar os "Helm chart values" da instalação de acordo com o [README.md do chart](deploy/k8s/charts/matriculaaa/README.md). Então, instalar com o seguinte comando.
 
 ```
@@ -330,6 +286,8 @@ helm upgrade --install matriculaaa deploy/k8s/charts/matriculaaa --set endpoint=
 # Aguardar, e acessar o painel administrativo em SUBSTITUIR_PELO_DOMINIO_PUBLICO
 ```
 
-Também é necessário setar o restante dos "values" requeridos, conforme consta na tabela do [README.md do Helm chart](deploy/k8s/charts/matriculaaa/README.md). A depender do Docker Registry, talvez seja necessário alterar os nomes das imagens Docker (`django.container.image`, `detectorDeVagas.container.image` e `realizadorDeMatriculas.container.image`) e as tags das imagens Docker (`django.container.tag`, `detectorDeVagas.container.tag` e `realizadorDeMatriculas.container.tag`).
+Também é necessário setar o restante dos "values" requeridos, conforme consta na tabela do [README.md do Helm chart](deploy/k8s/charts/matriculaaa/README.md). Principalmente, os "values" relacionados ao servidor PostgreSQL.
+
+A depender do Docker Registry, talvez seja necessário alterar os nomes das imagens Docker (`django.container.image`, `detectorDeVagas.container.image` e `realizadorDeMatriculas.container.image`) e as tags das imagens Docker (`django.container.tag`, `detectorDeVagas.container.tag` e `realizadorDeMatriculas.container.tag`).
 
 Dica: usar o IP externo com o final `.nip.io` ou `.sslip.io` caso não haja um domínio público disponível.

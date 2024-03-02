@@ -14,12 +14,4 @@ dependencies:
 - name: strimzi-kafka-operator
   version: "0.38.0"
   repository: "https://strimzi.io/charts"
-  condition: detectorDeVagas.enabled
-- name: ingress-nginx
-  version: 4.8.2
-  repository: https://kubernetes.github.io/ingress-nginx
-  condition: externalAccess.enabled
-- name: prometheus
-  version: 25.3.1
-  repository: https://prometheus-community.github.io/helm-charts
-  condition: prometheus.enabled
+  condition: strimzi.enabled

@@ -4,9 +4,6 @@ kafkaTopicName: vaga_disponivel
 
 endpoint:
 
-prometheus:
-  enabled: true
-
 externalAccess:
   enabled: true
 
@@ -61,6 +58,7 @@ django:
     email:
 
 strimzi:
+  enabled: false
   clusterName: kafka-cluster
   kafka:
     version: 3.6.0

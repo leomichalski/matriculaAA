@@ -1,4 +1,4 @@
-{{- if .Values.detectorDeVagas.enabled }}
+{{- if .Values.strimzi.enabled }}
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
