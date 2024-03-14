@@ -19,9 +19,12 @@ from utils.scraping import (
     abrir_url,
     start_screen,
     stop_screen,
+    cancelar_opcao_de_salvar_senha,
+    cancelar_opcao_de_traduzir,
 )
 from utils.sigaa import (
     login_no_sigaa,
+    ir_para_o_menu_discente,
     ir_pra_matricula_extraordinaria,
     concordar_com_cookies,
     buscar_disciplina_matricula_extraordinaria,
@@ -175,6 +178,42 @@ def main(url_do_login,
         matricula=matricula,
         senha=senha,
         pasta_imagens_pyautogui=pasta_imagens_pyautogui,
+    )
+
+    if take_screenshots:
+        take_screenshot(
+            pasta_destino_screenshots=pasta_destino_screenshots,
+            run_number=run_number
+        )
+
+    # TODO: sleep properly
+    time.sleep(10)
+
+    cancelar_opcao_de_salvar_senha(
+        pyautogui=pyautogui,
+        pasta_imagens_pyautogui=pasta_imagens_pyautogui
+    )
+
+    if take_screenshots:
+        take_screenshot(
+            pasta_destino_screenshots=pasta_destino_screenshots,
+            run_number=run_number
+        )
+
+    cancelar_opcao_de_traduzir(
+        pyautogui=pyautogui,
+        pasta_imagens_pyautogui=pasta_imagens_pyautogui
+    )
+
+    if take_screenshots:
+        take_screenshot(
+            pasta_destino_screenshots=pasta_destino_screenshots,
+            run_number=run_number
+        )
+
+    ir_para_o_menu_discente(
+        pyautogui=pyautogui,
+        pasta_imagens_pyautogui=pasta_imagens_pyautogui
     )
 
     if take_screenshots:

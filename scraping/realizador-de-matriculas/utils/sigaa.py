@@ -36,6 +36,8 @@ def login_no_sigaa(pyautogui, matricula, senha, pasta_imagens_pyautogui):
         filename=os.path.join(pasta_imagens_pyautogui, 'entrar_login.png'),
     )
     pyautogui.click()
+
+def ir_para_o_menu_discente(pyautogui, pasta_imagens_pyautogui):
     # PASSO: garantir que a pagina está no menu discente
     print('Indo para o menu discente...')
     menu_discente_location = move_to(

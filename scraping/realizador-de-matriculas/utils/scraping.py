@@ -126,6 +126,31 @@ def abrir_url(pyautogui, url):
     pyautogui.hotkey('enter')
 
 
+def cancelar_opcao_de_salvar_senha(pyautogui, pasta_imagens_pyautogui):
+    print('Cancelando opcao do firefox de salvar senha...')
+    try:
+        _ = move_to(
+            pyautogui=pyautogui,
+            filename=os.path.join(pasta_imagens_pyautogui, 'cancel_firefox_save_password.png'),
+            xoffset=60,
+        )
+        pyautogui.click()
+    except:
+        print('Opcao do firefox de salvar senha nao encontrada. Continuando...')
+
+
+def cancelar_opcao_de_traduzir(pyautogui, pasta_imagens_pyautogui):
+    print('Cancelando opcao do firefox de traduzir...')
+    try:
+        _ = move_to(
+            pyautogui=pyautogui,
+            filename=os.path.join(pasta_imagens_pyautogui, 'cancel_firefox_translate.png'),
+            xoffset=40,
+        )
+        pyautogui.click()
+    except:
+        print('Opcao do firefox de traduzir nao encontrada. Continuando...')
+
 def start_screen():
     from pyvirtualdisplay.display import Display
     nodes_to_stop = []
