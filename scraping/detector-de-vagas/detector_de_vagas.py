@@ -67,8 +67,8 @@ def main(pasta_arquivos_html='arquivos_html',
 
         # TODO: get "NIVEL", "ANO" and "PERIODO" from the database
         NIVEL = 'G'
-        ANO = '2023'
-        PERIODO = '4'
+        ANO = '2025'
+        PERIODO = '2'
 
         codigo_departamento_previo = -1  # departamento invalido
         for codigo_disciplina, nome_disciplina, nome_docente_turma, horario_codificado_turma, id_discente, email_discente, idx_departamento, codigo_departamento in turma_interessa_discente:
